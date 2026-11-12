@@ -1,0 +1,14 @@
+# Capturado em 11/11/2026 23:28 — GET /indicadores/impacto (resposta real, banco com o seed)
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Thu, 12 Nov 2026 02:28:43 GMT
+Cache-Control: no-store
+Transfer-Encoding: chunked
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Referrer-Policy: no-referrer
+Permissions-Policy: camera=(), microphone=(), geolocation=()
+Cross-Origin-Opener-Policy: same-origin
+Content-Security-Policy: default-src 'none'; frame-ancestors 'none'
+
+{"totalInscricoes":5,"inscricoesConcluidas":2,"taxaConclusaoPercentual":40,"propostasAtendidas":1,"porBairro":[{"bairro":"Capão Redondo","oportunidadesAbertas":2,"vagasOfertadas":53,"inscricoesAtivas":2,"inscricoesConcluidas":2,"propostasAbertas":0,"propostasAtendidas":1},{"bairro":"Campo Limpo","oportunidadesAbertas":2,"vagasOfertadas":34,"inscricoesAtivas":1,"inscricoesConcluidas":0,"propostasAbertas":1,"propostasAtendidas":0},{"bairro":"Jardim Ângela","oportunidadesAbertas":2,"vagasOfertadas":60,"inscricoesAtivas":0,"inscricoesConcluidas":0,"propostasAbertas":1,"propostasAtendidas":0}],"demandaReprimida":[{"area":"Saude","oportunidadesAbertas":0,"propostasAbertas":1,"votosEmPropostasAbertas":3},{"area":"Idiomas","oportunidadesAbertas":0,"propostasAbertas":1,"votosEmPropostasAbertas":1}]}

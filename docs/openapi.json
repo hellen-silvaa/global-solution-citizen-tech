@@ -1,0 +1,3550 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Oportuniza API",
+    "description": "CitizenTech da Global Solution FIAP 2026: rede que conecta cidadãos que buscam qualificação a cursos, oficinas, mentorias e vagas de jovem aprendiz gratuitas, com participação cidadã (propostas e votos por bairro).\n\n**Como autenticar:** faça `POST /auth/login`, copie o `token` e clique em **Authorize**.",
+    "version": "v1"
+  },
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Faz login e devolve o token JWT.",
+        "description": "Use o token no botão **Authorize** do Swagger. Proteções: limite de requisições por IP\ne bloqueio da conta por 15 minutos após 5 senhas erradas seguidas (429).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosLogin"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosLogin"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosToken"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DadosErroValidacao"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cidadaos": {
+      "post": {
+        "tags": [
+          "Cidadãos"
+        ],
+        "summary": "Cadastra um cidadão (público).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCadastroCidadao"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCadastroCidadao"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCadastroCidadao"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoCidadao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DadosErroValidacao"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Cidadãos"
+        ],
+        "summary": "Lista cidadãos ativos (somente admin).",
+        "parameters": [
+          {
+            "name": "bairro",
+            "in": "query",
+            "description": "Nome do bairro (busca exata).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pagina",
+            "in": "query",
+            "description": "Número da página, começando em 1.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "tamanho",
+            "in": "query",
+            "description": "Itens por página, de 1 a 50 (padrão 10).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosListagemCidadaoPaginaResultado"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cidadaos/{id}": {
+      "get": {
+        "tags": [
+          "Cidadãos"
+        ],
+        "summary": "Detalha um cidadão (o próprio ou admin).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoCidadao"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cidadãos"
+        ],
+        "summary": "Atualiza dados, interesses ou endereço (campos nulos não mudam).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosAtualizacaoCidadao"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosAtualizacaoCidadao"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosAtualizacaoCidadao"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoCidadao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cidadãos"
+        ],
+        "summary": "Desativa a conta (exclusão lógica: histórico preservado).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cidadaos/{id}/inscricoes": {
+      "get": {
+        "tags": [
+          "Cidadãos"
+        ],
+        "summary": "Inscrições do cidadão, opcionalmente filtradas por status.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filtra pelo status.",
+            "schema": {
+              "$ref": "#/components/schemas/StatusInscricao"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DadosDetalhamentoInscricao"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cidadaos/{id}/recomendacoes": {
+      "get": {
+        "tags": [
+          "Cidadãos"
+        ],
+        "summary": "Oportunidades recomendadas, com pontuação e motivos.",
+        "description": "Pontuação: interesse declarado (+3), mesmo bairro (+2), online (+1), gratuita (+1).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "limite",
+            "in": "query",
+            "description": "Quantidade máxima de recomendações devolvidas (padrão 5).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DadosRecomendacao"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/enderecos/{cep}": {
+      "get": {
+        "tags": [
+          "Endereços (ViaCEP)"
+        ],
+        "summary": "Consulta um CEP no ViaCEP (usado para preencher o cadastro).",
+        "parameters": [
+          {
+            "name": "cep",
+            "in": "path",
+            "description": "CEP com ou sem hífen (ex.: 01001-000).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosEndereco"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/indicadores/impacto": {
+      "get": {
+        "tags": [
+          "Indicadores"
+        ],
+        "summary": "Relatório de impacto: conclusões, taxa de conclusão, oferta por bairro e demanda reprimida por área.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosRelatorioImpacto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inscricoes/{id}": {
+      "get": {
+        "tags": [
+          "Inscrições"
+        ],
+        "summary": "Detalha uma inscrição (o cidadão, a organização dona ou admin).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoInscricao"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inscricoes/{id}/confirmar": {
+      "patch": {
+        "tags": [
+          "Inscrições"
+        ],
+        "summary": "Organização confirma a participação (Pendente → Confirmada).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoInscricao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inscricoes/{id}/concluir": {
+      "patch": {
+        "tags": [
+          "Inscrições"
+        ],
+        "summary": "Organização registra a conclusão (Confirmada → Concluída). Alimenta o indicador de impacto.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoInscricao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inscricoes/{id}/cancelar": {
+      "patch": {
+        "tags": [
+          "Inscrições"
+        ],
+        "summary": "Cancela a inscrição antes do início e libera a vaga (RN-I6).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/oportunidades": {
+      "get": {
+        "tags": [
+          "Oportunidades"
+        ],
+        "summary": "Busca oportunidades (público), com filtros combináveis e paginação.",
+        "parameters": [
+          {
+            "name": "area",
+            "in": "query",
+            "description": "Área de conhecimento.",
+            "schema": {
+              "$ref": "#/components/schemas/AreaConhecimento"
+            }
+          },
+          {
+            "name": "bairro",
+            "in": "query",
+            "description": "Nome do bairro (busca exata).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "modalidade",
+            "in": "query",
+            "description": "Presencial, Online ou Hibrida.",
+            "schema": {
+              "$ref": "#/components/schemas/Modalidade"
+            }
+          },
+          {
+            "name": "tipo",
+            "in": "query",
+            "description": "Tipo (oportunidade: Curso, Oficina, Mentoria, JovemAprendiz; organização: Ong, EscolaTecnica, Empresa, PoderPublico, ColetivoComunitario).",
+            "schema": {
+              "$ref": "#/components/schemas/TipoOportunidade"
+            }
+          },
+          {
+            "name": "gratuita",
+            "in": "query",
+            "description": "true para só gratuitas, false para só pagas; omita para todas.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "organizacaoId",
+            "in": "query",
+            "description": "Mostra apenas as oportunidades desta organização.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "texto",
+            "in": "query",
+            "description": "Palavra buscada no título e na descrição.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "somenteComVagas",
+            "in": "query",
+            "description": "true para esconder oportunidades sem vagas disponíveis.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "pagina",
+            "in": "query",
+            "description": "Número da página, começando em 1.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "tamanho",
+            "in": "query",
+            "description": "Itens por página, de 1 a 50 (padrão 10).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoOportunidadePaginaResultado"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Oportunidades"
+        ],
+        "summary": "Publica uma oportunidade (perfil Organização).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCriacaoOportunidade"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCriacaoOportunidade"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCriacaoOportunidade"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoOportunidade"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/oportunidades/{id}": {
+      "get": {
+        "tags": [
+          "Oportunidades"
+        ],
+        "summary": "Detalha uma oportunidade (público).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoOportunidade"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Oportunidades"
+        ],
+        "summary": "Atualiza uma oportunidade aberta (RN-O1: só a organização dona ou admin).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosAtualizacaoOportunidade"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosAtualizacaoOportunidade"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosAtualizacaoOportunidade"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoOportunidade"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/oportunidades/{id}/encerrar": {
+      "patch": {
+        "tags": [
+          "Oportunidades"
+        ],
+        "summary": "Encerra as inscrições de uma oportunidade.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/oportunidades/{id}/cancelar": {
+      "patch": {
+        "tags": [
+          "Oportunidades"
+        ],
+        "summary": "Cancela uma oportunidade.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/oportunidades/{id}/inscricoes": {
+      "post": {
+        "tags": [
+          "Oportunidades"
+        ],
+        "summary": "Inscreve o cidadão logado na oportunidade (regras RN-I1 a RN-I5).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoInscricao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Oportunidades"
+        ],
+        "summary": "Lista os inscritos (organização dona ou admin).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DadosDetalhamentoInscricao"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizacoes": {
+      "post": {
+        "tags": [
+          "Organizações"
+        ],
+        "summary": "Cadastra uma organização (público).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCadastroOrganizacao"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCadastroOrganizacao"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCadastroOrganizacao"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoOrganizacao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DadosErroValidacao"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Organizações"
+        ],
+        "summary": "Lista organizações ativas (público).",
+        "parameters": [
+          {
+            "name": "tipo",
+            "in": "query",
+            "description": "Tipo (oportunidade: Curso, Oficina, Mentoria, JovemAprendiz; organização: Ong, EscolaTecnica, Empresa, PoderPublico, ColetivoComunitario).",
+            "schema": {
+              "$ref": "#/components/schemas/TipoOrganizacao"
+            }
+          },
+          {
+            "name": "pagina",
+            "in": "query",
+            "description": "Número da página, começando em 1.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "tamanho",
+            "in": "query",
+            "description": "Itens por página, de 1 a 50 (padrão 10).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoOrganizacaoPaginaResultado"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizacoes/{id}": {
+      "get": {
+        "tags": [
+          "Organizações"
+        ],
+        "summary": "Detalha uma organização (público).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoOrganizacao"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Organizações"
+        ],
+        "summary": "Atualiza a organização (ela mesma ou admin).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosAtualizacaoOrganizacao"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosAtualizacaoOrganizacao"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosAtualizacaoOrganizacao"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoOrganizacao"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Organizações"
+        ],
+        "summary": "Desativa a organização (exclusão lógica).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/propostas": {
+      "get": {
+        "tags": [
+          "Propostas (participação cidadã)"
+        ],
+        "summary": "Lista propostas (público). Por padrão, as mais votadas primeiro.",
+        "parameters": [
+          {
+            "name": "bairro",
+            "in": "query",
+            "description": "Nome do bairro (busca exata).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "area",
+            "in": "query",
+            "description": "Área de conhecimento.",
+            "schema": {
+              "$ref": "#/components/schemas/AreaConhecimento"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filtra pelo status.",
+            "schema": {
+              "$ref": "#/components/schemas/StatusProposta"
+            }
+          },
+          {
+            "name": "ordenarPorVotos",
+            "in": "query",
+            "description": "true (padrão) ordena pelas mais votadas; false, pelas mais recentes.",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "pagina",
+            "in": "query",
+            "description": "Número da página, começando em 1.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "tamanho",
+            "in": "query",
+            "description": "Itens por página, de 1 a 50 (padrão 10).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoPropostaPaginaResultado"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Propostas (participação cidadã)"
+        ],
+        "summary": "Cria uma proposta (perfil Cidadão).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCriacaoProposta"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCriacaoProposta"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCriacaoProposta"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoProposta"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/propostas/{id}": {
+      "get": {
+        "tags": [
+          "Propostas (participação cidadã)"
+        ],
+        "summary": "Detalha uma proposta (público).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoProposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/propostas/{id}/votos": {
+      "post": {
+        "tags": [
+          "Propostas (participação cidadã)"
+        ],
+        "summary": "Vota em uma proposta (RN-P1: um voto por cidadão; RN-P2: só propostas abertas).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoProposta"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/propostas/{id}/atender": {
+      "post": {
+        "tags": [
+          "Propostas (participação cidadã)"
+        ],
+        "summary": "Organização atende a proposta publicando uma oportunidade vinculada (RN-P3).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCriacaoOportunidade"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCriacaoOportunidade"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DadosCriacaoOportunidade"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosDetalhamentoOportunidade"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/propostas/{id}/arquivar": {
+      "patch": {
+        "tags": [
+          "Propostas (participação cidadã)"
+        ],
+        "summary": "Arquiva a proposta (autor ou admin).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador do recurso.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DadosErro"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AreaConhecimento": {
+        "enum": [
+          "Tecnologia",
+          "Administracao",
+          "Saude",
+          "Gastronomia",
+          "ConstrucaoCivil",
+          "Idiomas",
+          "Beleza",
+          "Logistica",
+          "Artes",
+          "Empreendedorismo"
+        ],
+        "type": "string"
+      },
+      "DadosAtualizacaoCidadao": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "description": "Novo nome (omita para manter).",
+            "nullable": true
+          },
+          "escolaridade": {
+            "$ref": "#/components/schemas/Escolaridade"
+          },
+          "areasInteresse": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AreaConhecimento"
+            },
+            "description": "Nova lista de áreas de interesse, até 10 (omita para manter).",
+            "nullable": true
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/DadosEndereco"
+          }
+        },
+        "additionalProperties": false,
+        "description": "DadosAtualizacaoCidadao"
+      },
+      "DadosAtualizacaoOportunidade": {
+        "type": "object",
+        "properties": {
+          "titulo": {
+            "type": "string",
+            "description": "Título (até 120 caracteres).",
+            "nullable": true
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Descrição (até 1000 caracteres).",
+            "nullable": true
+          },
+          "modalidade": {
+            "$ref": "#/components/schemas/Modalidade"
+          },
+          "area": {
+            "$ref": "#/components/schemas/AreaConhecimento"
+          },
+          "bairro": {
+            "type": "string",
+            "description": "Bairro onde acontece.",
+            "nullable": true
+          },
+          "cargaHoraria": {
+            "type": "integer",
+            "description": "Carga horária, de 1 a 2000 horas.",
+            "format": "int32"
+          },
+          "vagas": {
+            "type": "integer",
+            "description": "Vagas, de 1 a 1000.",
+            "format": "int32"
+          },
+          "dataInicio": {
+            "type": "string",
+            "description": "Data de início.",
+            "format": "date-time"
+          },
+          "dataFim": {
+            "type": "string",
+            "description": "Data de término.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Dados para a organização dona alterar uma oportunidade ainda aberta."
+      },
+      "DadosAtualizacaoOrganizacao": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "description": "Novo nome (omita para manter).",
+            "nullable": true
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Nova descrição (omita para manter).",
+            "nullable": true
+          },
+          "site": {
+            "type": "string",
+            "description": "Novo site (omita para manter).",
+            "nullable": true
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/DadosEndereco"
+          }
+        },
+        "additionalProperties": false,
+        "description": "DadosAtualizacaoOrganizacao"
+      },
+      "DadosCadastroCidadao": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "description": "Nome completo (até 120 caracteres).",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "E-mail único, usado no login.",
+            "nullable": true
+          },
+          "senha": {
+            "type": "string",
+            "description": "Senha de 8 a 64 caracteres, com letras e números, sem espaços nas pontas.",
+            "nullable": true
+          },
+          "dataNascimento": {
+            "type": "string",
+            "description": "Data de nascimento (usada só para calcular a faixa etária).",
+            "format": "date-time"
+          },
+          "escolaridade": {
+            "$ref": "#/components/schemas/Escolaridade"
+          },
+          "areasInteresse": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AreaConhecimento"
+            },
+            "description": "De 1 a 10 áreas de conhecimento que interessam ao cidadão (base da recomendação).",
+            "nullable": true
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/DadosEndereco"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Dados para o cidadão criar a conta (endpoint público).",
+        "example": {
+          "nome": "Ana Souza",
+          "email": "ana.souza@exemplo.com",
+          "senha": "Senha@123",
+          "dataNascimento": "2004-06-15T00:00:00",
+          "escolaridade": "MedioCompleto",
+          "areasInteresse": [
+            "Tecnologia",
+            "Idiomas"
+          ],
+          "endereco": {
+            "cep": "05767-000",
+            "logradouro": "Estrada de Itapecerica",
+            "numero": "1200",
+            "bairro": "Capão Redondo",
+            "cidade": "São Paulo",
+            "uf": "SP"
+          }
+        }
+      },
+      "DadosCadastroOrganizacao": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "description": "Nome da organização (até 120 caracteres).",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "E-mail único, usado no login.",
+            "nullable": true
+          },
+          "senha": {
+            "type": "string",
+            "description": "Senha de 8 a 64 caracteres, com letras e números.",
+            "nullable": true
+          },
+          "tipo": {
+            "$ref": "#/components/schemas/TipoOrganizacao"
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Quem é a organização e o que oferece (até 500 caracteres).",
+            "nullable": true
+          },
+          "site": {
+            "type": "string",
+            "description": "Site da organização (opcional).",
+            "nullable": true
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/DadosEndereco"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Dados para uma organização criar a conta e passar a publicar oportunidades.",
+        "example": {
+          "nome": "Instituto Recomeçar",
+          "email": "contato@recomecar.exemplo.org",
+          "senha": "Senha@123",
+          "tipo": "Ong",
+          "descricao": "ONG que oferece cursos gratuitos de qualificação profissional para jovens.",
+          "site": "https://recomecar.exemplo.org",
+          "endereco": {
+            "cep": "05767-000",
+            "logradouro": "Estrada de Itapecerica",
+            "numero": "1200",
+            "bairro": "Capão Redondo",
+            "cidade": "São Paulo",
+            "uf": "SP"
+          }
+        }
+      },
+      "DadosCriacaoOportunidade": {
+        "type": "object",
+        "properties": {
+          "titulo": {
+            "type": "string",
+            "description": "Título (até 120 caracteres).",
+            "nullable": true
+          },
+          "descricao": {
+            "type": "string",
+            "description": "O que será ensinado e para quem (até 1000 caracteres).",
+            "nullable": true
+          },
+          "tipo": {
+            "$ref": "#/components/schemas/TipoOportunidade"
+          },
+          "modalidade": {
+            "$ref": "#/components/schemas/Modalidade"
+          },
+          "area": {
+            "$ref": "#/components/schemas/AreaConhecimento"
+          },
+          "bairro": {
+            "type": "string",
+            "description": "Bairro onde acontece.",
+            "nullable": true
+          },
+          "cargaHoraria": {
+            "type": "integer",
+            "description": "Carga horária total, de 1 a 2000 horas.",
+            "format": "int32"
+          },
+          "vagas": {
+            "type": "integer",
+            "description": "Quantidade de vagas, de 1 a 1000.",
+            "format": "int32"
+          },
+          "dataInicio": {
+            "type": "string",
+            "description": "Data de início.",
+            "format": "date-time"
+          },
+          "dataFim": {
+            "type": "string",
+            "description": "Data de término (posterior ao início).",
+            "format": "date-time"
+          },
+          "gratuita": {
+            "type": "boolean",
+            "description": "Se é gratuita. Padrão: true."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Dados para a organização publicar uma oportunidade.",
+        "example": {
+          "titulo": "Curso de Programação Web",
+          "descricao": "Introdução gratuita a HTML, CSS, JavaScript e C# para jovens do bairro.",
+          "tipo": "Curso",
+          "modalidade": "Presencial",
+          "area": "Tecnologia",
+          "bairro": "Capão Redondo",
+          "cargaHoraria": 80,
+          "vagas": 30,
+          "dataInicio": "2026-12-01T00:00:00",
+          "dataFim": "2027-02-28T00:00:00",
+          "gratuita": true
+        }
+      },
+      "DadosCriacaoProposta": {
+        "type": "object",
+        "properties": {
+          "titulo": {
+            "type": "string",
+            "description": "Título (até 120 caracteres).",
+            "nullable": true
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Por que a qualificação é importante (até 1000 caracteres).",
+            "nullable": true
+          },
+          "area": {
+            "$ref": "#/components/schemas/AreaConhecimento"
+          },
+          "bairro": {
+            "type": "string",
+            "description": "Bairro onde falta a qualificação.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Proposta de qualificação que falta no bairro (participação cidadã).",
+        "example": {
+          "titulo": "Oficina de eletricista residencial",
+          "descricao": "Muitos moradores querem aprender instalação elétrica básica e não há curso perto daqui.",
+          "area": "ConstrucaoCivil",
+          "bairro": "Capão Redondo"
+        }
+      },
+      "DadosDetalhamentoCidadao": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Identificador.",
+            "format": "int64"
+          },
+          "nome": {
+            "type": "string",
+            "description": "Nome completo.",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "E-mail de login.",
+            "nullable": true
+          },
+          "dataNascimento": {
+            "type": "string",
+            "description": "Data de nascimento.",
+            "format": "date-time"
+          },
+          "escolaridade": {
+            "$ref": "#/components/schemas/Escolaridade"
+          },
+          "areasInteresse": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AreaConhecimento"
+            },
+            "description": "Áreas de interesse.",
+            "nullable": true
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/DadosEndereco"
+          },
+          "ativo": {
+            "type": "boolean",
+            "description": "Se a conta está ativa."
+          },
+          "criadoEm": {
+            "type": "string",
+            "description": "Data de criação da conta (UTC).",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Dados do cidadão logado."
+      },
+      "DadosDetalhamentoInscricao": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Identificador.",
+            "format": "int64"
+          },
+          "cidadaoId": {
+            "type": "integer",
+            "description": "Cidadão inscrito.",
+            "format": "int64"
+          },
+          "cidadaoNome": {
+            "type": "string",
+            "description": "Nome do cidadão.",
+            "nullable": true
+          },
+          "oportunidadeId": {
+            "type": "integer",
+            "description": "Oportunidade escolhida.",
+            "format": "int64"
+          },
+          "oportunidadeTitulo": {
+            "type": "string",
+            "description": "Título da oportunidade.",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusInscricao"
+          },
+          "criadaEm": {
+            "type": "string",
+            "description": "Quando a inscrição foi feita (UTC).",
+            "format": "date-time"
+          },
+          "atualizadaEm": {
+            "type": "string",
+            "description": "Última mudança de status (UTC), se houver.",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Inscrição de um cidadão em uma oportunidade.",
+        "example": {
+          "id": 10,
+          "cidadaoId": 5,
+          "cidadaoNome": "Ana Souza",
+          "oportunidadeId": 3,
+          "oportunidadeTitulo": "Curso de Programação Web",
+          "status": "Pendente",
+          "criadaEm": "2026-11-11T12:30:00Z",
+          "atualizadaEm": null
+        }
+      },
+      "DadosDetalhamentoOportunidade": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Identificador.",
+            "format": "int64"
+          },
+          "titulo": {
+            "type": "string",
+            "description": "Título.",
+            "nullable": true
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Descrição.",
+            "nullable": true
+          },
+          "tipo": {
+            "$ref": "#/components/schemas/TipoOportunidade"
+          },
+          "modalidade": {
+            "$ref": "#/components/schemas/Modalidade"
+          },
+          "area": {
+            "$ref": "#/components/schemas/AreaConhecimento"
+          },
+          "bairro": {
+            "type": "string",
+            "description": "Bairro.",
+            "nullable": true
+          },
+          "cargaHoraria": {
+            "type": "integer",
+            "description": "Carga horária em horas.",
+            "format": "int32"
+          },
+          "vagasTotais": {
+            "type": "integer",
+            "description": "Total de vagas ofertadas.",
+            "format": "int32"
+          },
+          "vagasDisponiveis": {
+            "type": "integer",
+            "description": "Vagas ainda livres (totais menos inscrições ativas).",
+            "format": "int32"
+          },
+          "dataInicio": {
+            "type": "string",
+            "description": "Início.",
+            "format": "date-time"
+          },
+          "dataFim": {
+            "type": "string",
+            "description": "Término.",
+            "format": "date-time"
+          },
+          "gratuita": {
+            "type": "boolean",
+            "description": "Se é gratuita."
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusOportunidade"
+          },
+          "organizacaoId": {
+            "type": "integer",
+            "description": "Identificador da organização dona.",
+            "format": "int64"
+          },
+          "organizacaoNome": {
+            "type": "string",
+            "description": "Nome da organização dona.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Oportunidade com as vagas restantes e a organização dona.",
+        "example": {
+          "id": 3,
+          "titulo": "Curso de Programação Web",
+          "descricao": "Introdução gratuita a HTML, CSS, JavaScript e C# para jovens do bairro.",
+          "tipo": "Curso",
+          "modalidade": "Presencial",
+          "area": "Tecnologia",
+          "bairro": "Capão Redondo",
+          "cargaHoraria": 80,
+          "vagasTotais": 30,
+          "vagasDisponiveis": 12,
+          "dataInicio": "2026-12-01T00:00:00",
+          "dataFim": "2027-02-28T00:00:00",
+          "gratuita": true,
+          "status": "Aberta",
+          "organizacaoId": 2,
+          "organizacaoNome": "Instituto Recomeçar"
+        }
+      },
+      "DadosDetalhamentoOportunidadePaginaResultado": {
+        "type": "object",
+        "properties": {
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DadosDetalhamentoOportunidade"
+            },
+            "description": "Itens da página atual.",
+            "nullable": true
+          },
+          "pagina": {
+            "type": "integer",
+            "description": "Número da página (começa em 1).",
+            "format": "int32"
+          },
+          "tamanhoPagina": {
+            "type": "integer",
+            "description": "Itens por página.",
+            "format": "int32"
+          },
+          "totalItens": {
+            "type": "integer",
+            "description": "Total de itens que atendem ao filtro, somando todas as páginas.",
+            "format": "int32"
+          },
+          "totalPaginas": {
+            "type": "integer",
+            "description": "Total de páginas, calculado a partir do total de itens e do tamanho da página.",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Página de resultados devolvida pelas listagens."
+      },
+      "DadosDetalhamentoOrganizacao": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Identificador.",
+            "format": "int64"
+          },
+          "nome": {
+            "type": "string",
+            "description": "Nome.",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "E-mail de contato.",
+            "nullable": true
+          },
+          "tipo": {
+            "$ref": "#/components/schemas/TipoOrganizacao"
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Descrição.",
+            "nullable": true
+          },
+          "site": {
+            "type": "string",
+            "description": "Site (opcional).",
+            "nullable": true
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/DadosEndereco"
+          },
+          "ativo": {
+            "type": "boolean",
+            "description": "Se a conta está ativa."
+          },
+          "criadoEm": {
+            "type": "string",
+            "description": "Data de criação (UTC).",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Dados públicos de uma organização."
+      },
+      "DadosDetalhamentoOrganizacaoPaginaResultado": {
+        "type": "object",
+        "properties": {
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DadosDetalhamentoOrganizacao"
+            },
+            "description": "Itens da página atual.",
+            "nullable": true
+          },
+          "pagina": {
+            "type": "integer",
+            "description": "Número da página (começa em 1).",
+            "format": "int32"
+          },
+          "tamanhoPagina": {
+            "type": "integer",
+            "description": "Itens por página.",
+            "format": "int32"
+          },
+          "totalItens": {
+            "type": "integer",
+            "description": "Total de itens que atendem ao filtro, somando todas as páginas.",
+            "format": "int32"
+          },
+          "totalPaginas": {
+            "type": "integer",
+            "description": "Total de páginas, calculado a partir do total de itens e do tamanho da página.",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Página de resultados devolvida pelas listagens."
+      },
+      "DadosDetalhamentoProposta": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Identificador.",
+            "format": "int64"
+          },
+          "titulo": {
+            "type": "string",
+            "description": "Título.",
+            "nullable": true
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Descrição.",
+            "nullable": true
+          },
+          "area": {
+            "$ref": "#/components/schemas/AreaConhecimento"
+          },
+          "bairro": {
+            "type": "string",
+            "description": "Bairro.",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusProposta"
+          },
+          "totalVotos": {
+            "type": "integer",
+            "description": "Votos recebidos (cada cidadão vota uma única vez).",
+            "format": "int32"
+          },
+          "autorId": {
+            "type": "integer",
+            "description": "Cidadão autor.",
+            "format": "int64"
+          },
+          "autorNome": {
+            "type": "string",
+            "description": "Nome do autor.",
+            "nullable": true
+          },
+          "oportunidadeGeradaId": {
+            "type": "integer",
+            "description": "Oportunidade criada para atender a proposta, se já atendida.",
+            "format": "int64",
+            "nullable": true
+          },
+          "criadaEm": {
+            "type": "string",
+            "description": "Data de criação (UTC).",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Proposta com a contagem de votos.",
+        "example": {
+          "id": 2,
+          "titulo": "Oficina de eletricista residencial",
+          "descricao": "Muitos moradores querem aprender instalação elétrica básica e não há curso perto daqui.",
+          "area": "ConstrucaoCivil",
+          "bairro": "Capão Redondo",
+          "status": "Aberta",
+          "totalVotos": 7,
+          "autorId": 5,
+          "autorNome": "Ana Souza",
+          "oportunidadeGeradaId": null,
+          "criadaEm": "2026-11-10T09:00:00Z"
+        }
+      },
+      "DadosDetalhamentoPropostaPaginaResultado": {
+        "type": "object",
+        "properties": {
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DadosDetalhamentoProposta"
+            },
+            "description": "Itens da página atual.",
+            "nullable": true
+          },
+          "pagina": {
+            "type": "integer",
+            "description": "Número da página (começa em 1).",
+            "format": "int32"
+          },
+          "tamanhoPagina": {
+            "type": "integer",
+            "description": "Itens por página.",
+            "format": "int32"
+          },
+          "totalItens": {
+            "type": "integer",
+            "description": "Total de itens que atendem ao filtro, somando todas as páginas.",
+            "format": "int32"
+          },
+          "totalPaginas": {
+            "type": "integer",
+            "description": "Total de páginas, calculado a partir do total de itens e do tamanho da página.",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Página de resultados devolvida pelas listagens."
+      },
+      "DadosEndereco": {
+        "type": "object",
+        "properties": {
+          "cep": {
+            "type": "string",
+            "description": "CEP com 8 dígitos, com ou sem hífen (ex.: 05767-000).",
+            "nullable": true
+          },
+          "logradouro": {
+            "type": "string",
+            "description": "Rua, avenida ou estrada.",
+            "nullable": true
+          },
+          "numero": {
+            "type": "string",
+            "description": "Número do imóvel (opcional).",
+            "nullable": true
+          },
+          "bairro": {
+            "type": "string",
+            "description": "Bairro. É usado para recomendar oportunidades perto do cidadão.",
+            "nullable": true
+          },
+          "cidade": {
+            "type": "string",
+            "description": "Cidade.",
+            "nullable": true
+          },
+          "uf": {
+            "type": "string",
+            "description": "Sigla do estado com 2 letras (ex.: SP).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Endereço usado no cadastro e devolvido pela consulta ao ViaCEP.",
+        "example": {
+          "cep": "05767-000",
+          "logradouro": "Estrada de Itapecerica",
+          "numero": "1200",
+          "bairro": "Capão Redondo",
+          "cidade": "São Paulo",
+          "uf": "SP"
+        }
+      },
+      "DadosErro": {
+        "type": "object",
+        "properties": {
+          "mensagem": {
+            "type": "string",
+            "description": "Explicação do erro em português, sem detalhes internos.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Corpo padrão de erro da API.",
+        "example": {
+          "mensagem": "Mensagem em português explicando o motivo do erro."
+        }
+      },
+      "DadosErroValidacao": {
+        "type": "object",
+        "properties": {
+          "campo": {
+            "type": "string",
+            "description": "Nome do campo inválido.",
+            "nullable": true
+          },
+          "mensagem": {
+            "type": "string",
+            "description": "O que está errado nesse campo.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Erro de validação de um campo da requisição.",
+        "example": {
+          "campo": "email",
+          "mensagem": "E-mail inválido"
+        }
+      },
+      "DadosIndicadorArea": {
+        "type": "object",
+        "properties": {
+          "area": {
+            "$ref": "#/components/schemas/AreaConhecimento"
+          },
+          "oportunidadesAbertas": {
+            "type": "integer",
+            "description": "Oferta: oportunidades abertas na área.",
+            "format": "int32"
+          },
+          "propostasAbertas": {
+            "type": "integer",
+            "description": "Procura: propostas abertas na área.",
+            "format": "int32"
+          },
+          "votosEmPropostasAbertas": {
+            "type": "integer",
+            "description": "Votos acumulados nessas propostas (demanda reprimida).",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Oferta x demanda por área de conhecimento."
+      },
+      "DadosIndicadorBairro": {
+        "type": "object",
+        "properties": {
+          "bairro": {
+            "type": "string",
+            "description": "Bairro.",
+            "nullable": true
+          },
+          "oportunidadesAbertas": {
+            "type": "integer",
+            "description": "Oportunidades abertas no bairro.",
+            "format": "int32"
+          },
+          "vagasOfertadas": {
+            "type": "integer",
+            "description": "Total de vagas nessas oportunidades.",
+            "format": "int32"
+          },
+          "inscricoesAtivas": {
+            "type": "integer",
+            "description": "Inscrições em andamento.",
+            "format": "int32"
+          },
+          "inscricoesConcluidas": {
+            "type": "integer",
+            "description": "Inscrições concluídas.",
+            "format": "int32"
+          },
+          "propostasAbertas": {
+            "type": "integer",
+            "description": "Propostas ainda em votação.",
+            "format": "int32"
+          },
+          "propostasAtendidas": {
+            "type": "integer",
+            "description": "Propostas já atendidas por uma organização.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Indicador de impacto por bairro: oferta, procura e participação."
+      },
+      "DadosListagemCidadao": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Identificador.",
+            "format": "int64"
+          },
+          "nome": {
+            "type": "string",
+            "description": "Nome.",
+            "nullable": true
+          },
+          "bairro": {
+            "type": "string",
+            "description": "Bairro de residência.",
+            "nullable": true
+          },
+          "escolaridade": {
+            "$ref": "#/components/schemas/Escolaridade"
+          },
+          "ativo": {
+            "type": "boolean",
+            "description": "Se a conta está ativa."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Listagem para o admin: sem e-mail nem data de nascimento (minimização de dados pessoais, LGPD)."
+      },
+      "DadosListagemCidadaoPaginaResultado": {
+        "type": "object",
+        "properties": {
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DadosListagemCidadao"
+            },
+            "description": "Itens da página atual.",
+            "nullable": true
+          },
+          "pagina": {
+            "type": "integer",
+            "description": "Número da página (começa em 1).",
+            "format": "int32"
+          },
+          "tamanhoPagina": {
+            "type": "integer",
+            "description": "Itens por página.",
+            "format": "int32"
+          },
+          "totalItens": {
+            "type": "integer",
+            "description": "Total de itens que atendem ao filtro, somando todas as páginas.",
+            "format": "int32"
+          },
+          "totalPaginas": {
+            "type": "integer",
+            "description": "Total de páginas, calculado a partir do total de itens e do tamanho da página.",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Página de resultados devolvida pelas listagens."
+      },
+      "DadosLogin": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "E-mail cadastrado (até 120 caracteres).",
+            "nullable": true
+          },
+          "senha": {
+            "type": "string",
+            "description": "Senha da conta (até 64 caracteres).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Credenciais de login. Os limites de tamanho evitam abuso (senhas gigantes deixam o hash lento).",
+        "example": {
+          "email": "ana.souza@exemplo.com",
+          "senha": "Senha@123"
+        }
+      },
+      "DadosRecomendacao": {
+        "type": "object",
+        "properties": {
+          "oportunidade": {
+            "$ref": "#/components/schemas/DadosDetalhamentoOportunidade"
+          },
+          "pontuacao": {
+            "type": "integer",
+            "description": "Pontuação somada pelos critérios (quanto maior, mais aderente).",
+            "format": "int32"
+          },
+          "motivos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Explicação de cada critério que pontuou (recomendação transparente, sem caixa-preta).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Oportunidade recomendada a um cidadão, com a pontuação e os motivos da recomendação.",
+        "example": {
+          "oportunidade": {
+            "id": 3,
+            "titulo": "Curso de Programação Web",
+            "descricao": "Introdução gratuita a HTML, CSS, JavaScript e C# para jovens do bairro.",
+            "tipo": "Curso",
+            "modalidade": "Presencial",
+            "area": "Tecnologia",
+            "bairro": "Capão Redondo",
+            "cargaHoraria": 80,
+            "vagasTotais": 30,
+            "vagasDisponiveis": 12,
+            "dataInicio": "2026-12-01T00:00:00",
+            "dataFim": "2027-02-28T00:00:00",
+            "gratuita": true,
+            "status": "Aberta",
+            "organizacaoId": 2,
+            "organizacaoNome": "Instituto Recomeçar"
+          },
+          "pontuacao": 85,
+          "motivos": [
+            "Área de interesse: Tecnologia",
+            "Oferecida no seu bairro: Capão Redondo",
+            "Gratuita"
+          ]
+        }
+      },
+      "DadosRelatorioImpacto": {
+        "type": "object",
+        "properties": {
+          "totalInscricoes": {
+            "type": "integer",
+            "description": "Total de inscrições (exceto canceladas).",
+            "format": "int32"
+          },
+          "inscricoesConcluidas": {
+            "type": "integer",
+            "description": "Inscrições que viraram qualificação concluída.",
+            "format": "int32"
+          },
+          "taxaConclusaoPercentual": {
+            "type": "number",
+            "description": "Concluídas ÷ total de inscrições, em %.",
+            "format": "double"
+          },
+          "propostasAtendidas": {
+            "type": "integer",
+            "description": "Propostas da comunidade atendidas.",
+            "format": "int32"
+          },
+          "porBairro": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DadosIndicadorBairro"
+            },
+            "description": "Oferta, procura e participação por bairro.",
+            "nullable": true
+          },
+          "demandaReprimida": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DadosIndicadorArea"
+            },
+            "description": "Áreas em que a comunidade pediu e ainda falta oferta.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Relatório consolidado: é o \"indicador de impacto\" da Ficha da CitizenTech.",
+        "example": {
+          "totalInscricoes": 9,
+          "inscricoesConcluidas": 3,
+          "taxaConclusaoPercentual": 33.3,
+          "propostasAtendidas": 2,
+          "porBairro": [
+            {
+              "bairro": "Capão Redondo",
+              "oportunidadesAbertas": 5,
+              "vagasOfertadas": 89,
+              "inscricoesAtivas": 5,
+              "inscricoesConcluidas": 3,
+              "propostasAbertas": 1,
+              "propostasAtendidas": 1
+            }
+          ],
+          "demandaReprimida": [
+            {
+              "area": "Saude",
+              "oportunidadesAbertas": 0,
+              "propostasAbertas": 1,
+              "votosEmPropostasAbertas": 3
+            }
+          ]
+        }
+      },
+      "DadosToken": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "JWT assinado. Envie no cabeçalho Authorization: Bearer {token}.",
+            "nullable": true
+          },
+          "tipo": {
+            "type": "string",
+            "description": "Tipo do token (sempre Bearer).",
+            "nullable": true
+          },
+          "expiraEm": {
+            "type": "string",
+            "description": "Data e hora de expiração do token (UTC).",
+            "format": "date-time"
+          },
+          "usuarioId": {
+            "type": "integer",
+            "description": "Identificador do usuário autenticado.",
+            "format": "int64"
+          },
+          "nome": {
+            "type": "string",
+            "description": "Nome do usuário.",
+            "nullable": true
+          },
+          "perfil": {
+            "$ref": "#/components/schemas/Perfil"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Token JWT devolvido pelo login.",
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+          "tipo": "Bearer",
+          "expiraEm": "2026-11-11T14:00:00Z",
+          "usuarioId": 5,
+          "nome": "Ana Souza",
+          "perfil": "Cidadao"
+        }
+      },
+      "Escolaridade": {
+        "enum": [
+          "FundamentalIncompleto",
+          "FundamentalCompleto",
+          "MedioIncompleto",
+          "MedioCompleto",
+          "Tecnico",
+          "SuperiorIncompleto",
+          "SuperiorCompleto"
+        ],
+        "type": "string"
+      },
+      "Modalidade": {
+        "enum": [
+          "Presencial",
+          "Online",
+          "Hibrida"
+        ],
+        "type": "string"
+      },
+      "Perfil": {
+        "enum": [
+          "Admin",
+          "Cidadao",
+          "Organizacao"
+        ],
+        "type": "string"
+      },
+      "StatusInscricao": {
+        "enum": [
+          "Pendente",
+          "Confirmada",
+          "Concluida",
+          "Cancelada"
+        ],
+        "type": "string"
+      },
+      "StatusOportunidade": {
+        "enum": [
+          "Aberta",
+          "Encerrada",
+          "Cancelada"
+        ],
+        "type": "string"
+      },
+      "StatusProposta": {
+        "enum": [
+          "Aberta",
+          "Atendida",
+          "Arquivada"
+        ],
+        "type": "string"
+      },
+      "TipoOportunidade": {
+        "enum": [
+          "Curso",
+          "Oficina",
+          "Mentoria",
+          "JovemAprendiz"
+        ],
+        "type": "string"
+      },
+      "TipoOrganizacao": {
+        "enum": [
+          "Ong",
+          "EscolaTecnica",
+          "Empresa",
+          "PoderPublico",
+          "ColetivoComunitario"
+        ],
+        "type": "string"
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Cole apenas o token (sem o prefixo Bearer).",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Autenticação"
+    },
+    {
+      "name": "Cidadãos"
+    },
+    {
+      "name": "Endereços (ViaCEP)"
+    },
+    {
+      "name": "Indicadores"
+    },
+    {
+      "name": "Inscrições"
+    },
+    {
+      "name": "Oportunidades"
+    },
+    {
+      "name": "Organizações"
+    },
+    {
+      "name": "Propostas (participação cidadã)"
+    }
+  ]
+}

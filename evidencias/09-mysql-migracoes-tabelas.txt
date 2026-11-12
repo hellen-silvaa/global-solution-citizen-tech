@@ -1,0 +1,16 @@
+# Capturado em 11/11/2026 23:28 — MySQL (contêiner): migrações aplicadas e tabelas
+
+MigrationId	ProductVersion
+20261110013117_InicialUsuarios	10.0.12
+20261110013129_AdicionaOportunidades	10.0.12
+20261110013140_AdicionaInscricoes	10.0.12
+20261110013149_AdicionaPropostasEVotos	10.0.12
+20261110013223_SeedDadosFicticios	10.0.12
+20261110020139_AdicionaControleDeLogin	10.0.12
+Tables_in_oportuniza
+__EFMigrationsHistory
+inscricoes
+oportunidades
+propostas
+usuarios
+votos

@@ -1,0 +1,148 @@
+### Oportuniza API: roteiro de demonstração
+### Use com o REST Client (VS Code) ou o HTTP Client do Rider/Visual Studio.
+### Pré-requisito: API rodando (dotnet run --project src/Oportuniza.Api) com o seed aplicado.
+
+@base = http://localhost:5080
+
+### 1. Health check (API + banco)
+GET {{base}}/health
+
+### 2. Busca pública: oportunidades de Tecnologia com vagas
+GET {{base}}/oportunidades?area=Tecnologia&somenteComVagas=true
+
+### 3. Login da cidadã Ana (fictícia)
+# @name loginAna
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "ana@exemplo.local", "senha": "Senha@123" }
+
+###
+@tokenAna = {{loginAna.response.body.token}}
+@idAna = {{loginAna.response.body.usuarioId}}
+
+### 4. Recomendações para a Ana (pontuação + motivos)
+GET {{base}}/cidadaos/{{idAna}}/recomendacoes
+Authorization: Bearer {{tokenAna}}
+
+### 5. Ana se inscreve no curso de Auxiliar Administrativo (id 3)
+POST {{base}}/oportunidades/3/inscricoes
+Authorization: Bearer {{tokenAna}}
+
+### 6. Inscrição duplicada → 400 (RN-I3)
+POST {{base}}/oportunidades/3/inscricoes
+Authorization: Bearer {{tokenAna}}
+
+### 7. Inscrição em oportunidade encerrada → 400 (RN-I1)
+POST {{base}}/oportunidades/7/inscricoes
+Authorization: Bearer {{tokenAna}}
+
+### 8. Minhas inscrições
+GET {{base}}/cidadaos/{{idAna}}/inscricoes
+Authorization: Bearer {{tokenAna}}
+
+### 9. Ana tenta publicar uma oportunidade → 403 (só organizações)
+POST {{base}}/oportunidades
+Authorization: Bearer {{tokenAna}}
+Content-Type: application/json
+
+{ "titulo": "x", "descricao": "x", "tipo": "Curso", "modalidade": "Online", "area": "Artes",
+  "bairro": "Centro", "cargaHoraria": 1, "vagas": 1, "dataInicio": "2027-03-01T19:00:00", "dataFim": "2027-03-01T21:00:00" }
+
+### 10. Login da organização Instituto Recomeçar (fictícia)
+# @name loginOrg
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "contato@recomecar.local", "senha": "Senha@123" }
+
+###
+@tokenOrg = {{loginOrg.response.body.token}}
+
+### 11. Organização publica uma oportunidade → 201 + Location
+POST {{base}}/oportunidades
+Authorization: Bearer {{tokenOrg}}
+Content-Type: application/json
+
+{
+  "titulo": "Excel para o Primeiro Emprego",
+  "descricao": "Planilhas do básico ao intermediário, com exercícios de rotina administrativa.",
+  "tipo": "Curso",
+  "modalidade": "Hibrida",
+  "area": "Administracao",
+  "bairro": "Capão Redondo",
+  "cargaHoraria": 24,
+  "vagas": 20,
+  "dataInicio": "2027-02-01T19:00:00",
+  "dataFim": "2027-03-01T21:00:00",
+  "gratuita": true
+}
+
+### 12. Lista de inscritos da oportunidade 2 (da organização)
+GET {{base}}/oportunidades/2/inscricoes
+Authorization: Bearer {{tokenOrg}}
+
+### 13. Concluir a inscrição 1 (Ana no curso de Programação Web, já confirmada no seed)
+PATCH {{base}}/inscricoes/1/concluir
+Authorization: Bearer {{tokenOrg}}
+
+### 14. Participação cidadã: propostas mais votadas
+GET {{base}}/propostas?status=Aberta
+
+### 15. Ana vota na proposta "Curso de Cuidador de Idosos" (já votou no seed → 400, RN-P1)
+POST {{base}}/propostas/1/votos
+Authorization: Bearer {{tokenAna}}
+
+### 16. Ana cria uma proposta para o bairro dela
+POST {{base}}/propostas
+Authorization: Bearer {{tokenAna}}
+Content-Type: application/json
+
+{ "titulo": "Oficina de Manutenção de Celular", "descricao": "Muita gente no bairro quer trabalhar com isso.",
+  "area": "Tecnologia", "bairro": "Capão Redondo" }
+
+### 17. Organização atende a proposta 2 (Inglês para Atendimento) → cria oportunidade vinculada
+POST {{base}}/propostas/2/atender
+Authorization: Bearer {{tokenOrg}}
+Content-Type: application/json
+
+{
+  "titulo": "Inglês para Atendimento",
+  "descricao": "Turma aberta a pedido da comunidade do Campo Limpo.",
+  "tipo": "Curso",
+  "modalidade": "Online",
+  "area": "Idiomas",
+  "bairro": "Campo Limpo",
+  "cargaHoraria": 30,
+  "vagas": 25,
+  "dataInicio": "2027-02-01T19:00:00",
+  "dataFim": "2027-04-01T21:00:00"
+}
+
+### 18. Indicador de impacto (público)
+GET {{base}}/indicadores/impacto
+
+### 19. Consulta de CEP no ViaCEP (WebService externo)
+GET {{base}}/enderecos/01001-000
+
+### 20. CEP inválido → 400
+GET {{base}}/enderecos/123
+
+### 21. Sem token → 401
+GET {{base}}/cidadaos/5
+
+### ---------- Segurança ----------
+
+### 22. Força bruta: repita 5 vezes → quatro 401 e a quinta 429 (conta bloqueada por 15 minutos)
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "carla@exemplo.local", "senha": "SenhaErrada1" }
+
+### 23. Token adulterado → 401
+GET {{base}}/cidadaos
+Authorization: Bearer eyJhbGciOiJub25lIn0.eyJzdWIiOiIxIn0.
+
+### 24. Cidadã tenta ver dados de outro cidadão → 403
+GET {{base}}/cidadaos/6
+Authorization: Bearer {{tokenAna}}

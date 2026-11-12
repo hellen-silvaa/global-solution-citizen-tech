@@ -1,0 +1,17 @@
+# Capturado em 11/11/2026 23:28 — dotnet test --settings coverage.runsettings
+
+  Determinando os projetos a serem restaurados...
+  Todos os projetos estão atualizados para restauração.
+  Oportuniza.Domain -> C:\Users\helle\projetos\global-solution-citizen-tech\src\Oportuniza.Domain\bin\Debug\net10.0\Oportuniza.Domain.dll
+  Oportuniza.Application -> C:\Users\helle\projetos\global-solution-citizen-tech\src\Oportuniza.Application\bin\Debug\net10.0\Oportuniza.Application.dll
+  Oportuniza.Infrastructure -> C:\Users\helle\projetos\global-solution-citizen-tech\src\Oportuniza.Infrastructure\bin\Debug\net10.0\Oportuniza.Infrastructure.dll
+  Oportuniza.Api -> C:\Users\helle\projetos\global-solution-citizen-tech\src\Oportuniza.Api\bin\Debug\net10.0\Oportuniza.Api.dll
+  Oportuniza.Tests -> C:\Users\helle\projetos\global-solution-citizen-tech\tests\Oportuniza.Tests\bin\Debug\net10.0\Oportuniza.Tests.dll
+Execução de teste para C:\Users\helle\projetos\global-solution-citizen-tech\tests\Oportuniza.Tests\bin\Debug\net10.0\Oportuniza.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+Aprovado!  – Com falha:     0, Aprovado:   338, Ignorado:     0, Total:   338, Duração: 9 s - Oportuniza.Tests.dll (net10.0)
+Anexos:
+  C:\Users\helle\projetos\global-solution-citizen-tech\tests\Oportuniza.Tests\TestResults\8e4a65b2-2b4e-406d-b04b-77b9b9876c1c\helle_CYBERCHASE_2026-11-11.23_28_59.cobertura.xml
+
+## Cobertura (Cobertura XML mais recente)
+line-rate="1" branch-rate="0.9856115107913669"

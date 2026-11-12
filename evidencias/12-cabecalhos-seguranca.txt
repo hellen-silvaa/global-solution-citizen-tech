@@ -1,0 +1,16 @@
+# Capturado em 11/11/2026 23:28 — GET /health (cabeçalhos HTTP reais da API no Docker)
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Thu, 12 Nov 2026 02:28:42 GMT
+Cache-Control: no-store
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Pragma: no-cache
+Transfer-Encoding: chunked
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Referrer-Policy: no-referrer
+Permissions-Policy: camera=(), microphone=(), geolocation=()
+Cross-Origin-Opener-Policy: same-origin
+Content-Security-Policy: default-src 'none'; frame-ancestors 'none'
+
+{"status":"UP","banco":"UP"}

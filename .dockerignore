@@ -1,0 +1,14 @@
+**/bin
+**/obj
+**/TestResults
+tests/
+front/
+docs/
+evidencias/
+cobertura/
+.git
+.vs
+.vscode
+.claude
+*.pdf
+*.md

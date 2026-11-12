@@ -1,0 +1,14 @@
+# Capturado em 11/11/2026 23:28 — GET /enderecos/01001-000 (ViaCEP, resposta real)
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Thu, 12 Nov 2026 02:28:42 GMT
+Cache-Control: no-store
+Transfer-Encoding: chunked
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Referrer-Policy: no-referrer
+Permissions-Policy: camera=(), microphone=(), geolocation=()
+Cross-Origin-Opener-Policy: same-origin
+Content-Security-Policy: default-src 'none'; frame-ancestors 'none'
+
+{"cep":"01001000","logradouro":"Praça da Sé","numero":null,"bairro":"Sé","cidade":"São Paulo","uf":"SP"}

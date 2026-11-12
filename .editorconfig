@@ -1,0 +1,24 @@
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.cs]
+indent_size = 4
+
+[*.{json,xml,csproj,props,runsettings}]
+indent_size = 2
+
+# Migrações são geradas pelo EF Core: fora da análise estática.
+[**/Migrations/*.cs]
+generated_code = true
+
+# Testes: nomes descritivos com "_" (Cenario_Resultado) são a convenção do projeto.
+[tests/**.cs]
+dotnet_diagnostic.CA1707.severity = none
+
+# Arrays literais em asserções deixam o teste mais legível que campos estáticos.
+dotnet_diagnostic.CA1861.severity = none
