@@ -85,7 +85,7 @@ Os valores do `.env.example` funcionam para testar; troque as senhas em qualquer
 | **Cidadão beneficiado** | Jovens e adultos da periferia que buscam qualificação ou o primeiro emprego e não sabem onde existem cursos gratuitos perto de casa |
 | **Problema, em uma frase** | As oportunidades gratuitas de qualificação estão espalhadas entre ONGs, escolas técnicas, empresas e poder público, e não chegam a quem mais precisa delas |
 | **Como funciona** | Organizações publicam cursos, oficinas, mentorias e vagas de jovem aprendiz; o cidadão recebe recomendações pelo seu interesse e bairro e se inscreve; a comunidade **propõe e vota** nas qualificações que faltam no bairro e uma organização pode **atender** a proposta |
-| **O que cada parte faz** | **Esta API (C#/.NET)** é o backend: regras de negócio, banco de dados, autenticação e indicadores. O **front-end web** (`front/`, React) consome esta API e cobre todas as funcionalidades; o app mobile também consome esta API; a infraestrutura Linux hospeda esta API |
+| **O que cada parte faz** | **Esta API (C#/.NET)** é o backend: regras de negócio, banco de dados, autenticação e indicadores. O **front-end web** (`front/`, React) consome esta API com telas básicas; o app mobile também consome esta API; a infraestrutura Linux hospeda esta API |
 | **Link do repositório** | https://github.com/hellen-silvaa/global-solution-citizen-tech |
 | **Indicador de impacto** | Inscrições **concluídas** por bairro, taxa de conclusão e propostas da comunidade **atendidas** (`GET /indicadores/impacto`) |
 | **ODS conectados** | **4** (Educação de qualidade), **8** (Trabalho decente), **10** (Redução das desigualdades), **11** (Cidades e comunidades sustentáveis) |
@@ -128,10 +128,7 @@ flowchart LR
 
 ### Front-end web (`front/`)
 
-Aplicação **React 19 + TypeScript + Vite** que consome esta API, com telas para os três perfis: landing com indicadores ao vivo e os ODS,
-busca de oportunidades com filtros, recomendações explicadas, inscrições, propostas e votação, painel da organização (publicar, gerir inscritos,
-atender propostas), administração e **painel de impacto com gráficos**. Cadastro com ViaCEP e senha forte, modo escuro, responsivo e acessível.
-**91 testes** (Vitest) e **19 testes E2E com Playwright contra a API real**.
+Complemento simples em **React + TypeScript + Vite** que consome esta API: início, oportunidades, painel de impacto e layout responsivo. O foco desta entrega é o backend.
 
 <table>
   <tr>
@@ -144,23 +141,7 @@ atender propostas), administração e **painel de impacto com gráficos**. Cadas
   </tr>
 </table>
 
-```bash
-cd front
-npm install
-npm run dev     # abra http://localhost:5173 (com a API rodando)
-```
-
-Atenção às origens: o CORS da API só libera `http://localhost:5173`, então abra o front **exatamente** nesse endereço
-(`http://127.0.0.1:5173` é bloqueado). Já a API deve ser acessada por `http://127.0.0.1:5080`: com a API no Docker,
-`localhost` pode não responder. Nesse caso defina `VITE_API_URL=http://127.0.0.1:5080` (em `front/.env` ou na linha de comando).
-
-E2E (na pasta `front/`, com a API no ar, inclusive via Docker):
-
-```bash
-VITE_API_URL=http://127.0.0.1:5080 npm run e2e    # 19 testes; no PowerShell: $env:VITE_API_URL="http://127.0.0.1:5080"; npm run e2e
-```
-
-Detalhes, telas e endpoints usados por cada uma: [`front/README.md`](front/README.md).
+Para rodar: `cd front && npm install && npm run dev` e abra <http://localhost:5173> (com a API no ar; se ela estiver no Docker, use `VITE_API_URL=http://127.0.0.1:5080`). Mais detalhes em [`front/README.md`](front/README.md).
 
 ## 2. Arquitetura (Clean Architecture + DDD)
 
