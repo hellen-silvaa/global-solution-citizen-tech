@@ -6,14 +6,6 @@
 
 Cursos, oficinas, mentorias e vagas de jovem aprendiz gratuitas, reunidos em um só lugar e recomendados para o bairro de quem procura.
 
-![.NET 10](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet&logoColor=white)
-![C# 14](https://img.shields.io/badge/C%23-14-239120?logo=csharp&logoColor=white)
-![MySQL 8](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)
-![React 19](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
-![Docker](https://img.shields.io/badge/Docker-compose-2496ED?logo=docker&logoColor=white)
-![Testes](https://img.shields.io/badge/testes-338%20passando-brightgreen)
-![Cobertura](https://img.shields.io/badge/cobertura%20de%20linhas-100%25-brightgreen)
-
 **Global Solution FIAP 2026.2 · CitizenTech** · Engenharia de Software, 3º ano (Fev)
 
 </div>
