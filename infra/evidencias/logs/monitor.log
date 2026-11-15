@@ -1,53 +1,60 @@
-2026-11-15T15:28:27-0300 [INFO] Monitor iniciado (PID 10585): CPU 80%, memória 80%, disco 80%, intervalo 15s
-2026-11-15T15:28:27-0300 [INFO] cpu=19% memoria=31% disco=28% carga="3.51 1.34 0.54" api=ok
-2026-11-15T15:28:35-0300 [INFO] Monitor iniciado (PID 10876): CPU 80%, memória 80%, disco 80%, intervalo 15s
-2026-11-15T15:28:35-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 1/2
-2026-11-15T15:28:35-0300 [INFO] cpu=27% memoria=30% disco=28% carga="3.23 1.32 0.54" api=falha(000)
-2026-11-15T15:28:50-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 2/2
-2026-11-15T15:28:50-0300 [CRITICO] API fora do ar em 2 verificações seguidas; recuperando contêineres
-2026-11-15T15:28:51-0300 [INFO] oportuniza-compose up -d executado
-2026-11-15T15:28:51-0300 [INFO] cpu=1% memoria=30% disco=28% carga="2.51 1.25 0.53" api=falha(000)
-2026-11-15T15:29:06-0300 [RECUPERADO] API respondendo novamente em http://127.0.0.1:5080/health
-2026-11-15T15:29:06-0300 [INFO] cpu=10% memoria=30% disco=28% carga="2.13 1.25 0.54" api=ok
-2026-11-15T15:29:21-0300 [ALERTA] API sem resposta saudável (HTTP 503), falha 1/2
-2026-11-15T15:29:21-0300 [INFO] cpu=6% memoria=20% disco=28% carga="1.80 1.22 0.55" api=falha(503)
-2026-11-15T15:29:36-0300 [ALERTA] API sem resposta saudável (HTTP 503), falha 2/2
-2026-11-15T15:29:36-0300 [CRITICO] API fora do ar em 2 verificações seguidas; recuperando contêineres
-2026-11-15T15:29:43-0300 [INFO] oportuniza-compose up -d executado
-2026-11-15T15:29:43-0300 [INFO] cpu=2% memoria=20% disco=28% carga="1.40 1.16 0.54" api=falha(503)
-2026-11-15T15:29:58-0300 [RECUPERADO] API respondendo novamente em http://127.0.0.1:5080/health
-2026-11-15T15:29:58-0300 [INFO] cpu=6% memoria=31% disco=28% carga="1.07 1.10 0.53" api=ok
-2026-11-15T15:30:13-0300 [ALERTA] CPU em 98% (limite 80%) (carga: 1.27 1.14 0.56)
-2026-11-15T15:30:13-0300 [INFO] cpu=98% memoria=31% disco=28% carga="1.27 1.14 0.56" api=ok
-2026-11-15T15:30:28-0300 [ALERTA] CPU em 100% (limite 80%) (carga: 1.44 1.19 0.58)
-2026-11-15T15:30:28-0300 [INFO] cpu=100% memoria=31% disco=28% carga="1.44 1.19 0.58" api=ok
-2026-11-15T15:30:43-0300 [ALERTA] CPU em 100% (limite 80%) (carga: 1.56 1.23 0.60)
-2026-11-15T15:30:43-0300 [INFO] cpu=100% memoria=31% disco=28% carga="1.56 1.23 0.60" api=ok
-2026-11-15T15:30:58-0300 [NORMALIZADO] CPU voltou para 1% (limite 80%)
-2026-11-15T15:30:58-0300 [INFO] cpu=1% memoria=30% disco=28% carga="1.21 1.17 0.59" api=ok
-2026-11-15T15:31:13-0300 [ALERTA] MEMORIA em 87% (limite 80%) (3426MB de 3906MB)
-2026-11-15T15:31:13-0300 [INFO] cpu=54% memoria=87% disco=28% carga="1.32 1.19 0.61" api=ok
-2026-11-15T15:31:28-0300 [ALERTA] MEMORIA em 94% (limite 80%) (3700MB de 3906MB)
-2026-11-15T15:31:28-0300 [INFO] cpu=52% memoria=94% disco=28% carga="1.25 1.18 0.62" api=ok
-2026-11-15T15:31:43-0300 [ALERTA] MEMORIA em 86% (limite 80%) (3362MB de 3906MB)
-2026-11-15T15:31:44-0300 [INFO] cpu=52% memoria=86% disco=28% carga="1.19 1.17 0.63" api=ok
-2026-11-15T15:31:59-0300 [NORMALIZADO] MEMORIA voltou para 28% (limite 80%)
-2026-11-15T15:31:59-0300 [INFO] cpu=4% memoria=28% disco=28% carga="1.08 1.15 0.63" api=ok
-2026-11-15T15:32:14-0300 [ALERTA] DISCO em 86% (limite 80%) (/, 4.2G livres)
-2026-11-15T15:32:14-0300 [INFO] cpu=1% memoria=28% disco=86% carga="0.84 1.09 0.62" api=ok
-2026-11-15T15:32:29-0300 [NORMALIZADO] DISCO voltou para 28% (limite 80%)
-2026-11-15T15:32:29-0300 [INFO] cpu=1% memoria=28% disco=28% carga="0.79 1.07 0.62" api=ok
-2026-11-15T15:32:44-0300 [INFO] cpu=2% memoria=28% disco=28% carga="0.61 1.02 0.61" api=ok
-2026-11-15T15:32:56-0300 [INFO] Monitor encerrado (sinal recebido)
-2026-11-15T15:33:19-0300 [INFO] Monitor iniciado (PID 1762): CPU 80%, memória 80%, disco 80%, intervalo 15s
-2026-11-15T15:33:19-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 1/2
-2026-11-15T15:33:19-0300 [INFO] cpu=50% memoria=25% disco=28% carga="0.36 0.08 0.03" api=falha(000)
-2026-11-15T15:33:35-0300 [RECUPERADO] API respondendo novamente em http://127.0.0.1:5080/health
-2026-11-15T15:33:35-0300 [INFO] cpu=7% memoria=26% disco=28% carga="0.35 0.09 0.03" api=ok
-2026-11-15T15:33:50-0300 [INFO] cpu=2% memoria=26% disco=28% carga="0.27 0.09 0.03" api=ok
-2026-11-15T15:34:05-0300 [INFO] cpu=1% memoria=26% disco=28% carga="0.21 0.08 0.03" api=ok
-2026-11-15T15:34:20-0300 [INFO] cpu=1% memoria=26% disco=28% carga="0.16 0.08 0.03" api=ok
-2026-11-15T15:34:35-0300 [INFO] cpu=5% memoria=27% disco=28% carga="0.20 0.09 0.03" api=ok
-2026-11-15T15:34:39-0300 [INFO] Monitor encerrado (sinal recebido)
-2026-11-15T15:34:40-0300 [INFO] Monitor iniciado (PID 2759): CPU 80%, memória 80%, disco 80%, intervalo 15s
-2026-11-15T15:34:40-0300 [INFO] cpu=4% memoria=27% disco=28% carga="0.18 0.09 0.03" api=ok
+2026-11-15T19:12:06-0300 [INFO] Monitor iniciado (PID 11194): CPU 80%, memória 80%, disco 80%, intervalo 15s
+2026-11-15T19:12:07-0300 [INFO] cpu=22% memoria=32% disco=28% carga="2.44 0.99 0.42" api=ok
+2026-11-15T19:12:22-0300 [INFO] cpu=3% memoria=32% disco=28% carga="1.90 0.94 0.41" api=ok
+2026-11-15T19:12:37-0300 [INFO] cpu=1% memoria=32% disco=28% carga="1.48 0.89 0.40" api=ok
+2026-11-15T19:12:52-0300 [INFO] cpu=1% memoria=32% disco=28% carga="1.15 0.85 0.39" api=ok
+2026-11-15T19:13:07-0300 [INFO] cpu=3% memoria=32% disco=28% carga="0.90 0.81 0.39" api=ok
+2026-11-15T19:13:22-0300 [INFO] cpu=3% memoria=33% disco=28% carga="0.70 0.77 0.38" api=ok
+2026-11-15T19:13:37-0300 [INFO] cpu=2% memoria=33% disco=28% carga="0.76 0.78 0.39" api=ok
+2026-11-15T19:13:52-0300 [INFO] cpu=1% memoria=33% disco=28% carga="0.59 0.74 0.38" api=ok
+2026-11-15T19:14:07-0300 [INFO] cpu=1% memoria=32% disco=28% carga="0.46 0.70 0.38" api=ok
+2026-11-15T19:14:22-0300 [INFO] cpu=1% memoria=32% disco=28% carga="0.36 0.67 0.37" api=ok
+2026-11-15T19:14:37-0300 [INFO] cpu=1% memoria=32% disco=28% carga="0.28 0.63 0.36" api=ok
+2026-11-15T19:14:53-0300 [INFO] cpu=1% memoria=33% disco=28% carga="0.22 0.60 0.36" api=ok
+2026-11-15T19:15:08-0300 [INFO] cpu=1% memoria=33% disco=28% carga="0.17 0.57 0.35" api=ok
+2026-11-15T19:15:23-0300 [INFO] cpu=1% memoria=33% disco=28% carga="0.21 0.56 0.35" api=ok
+2026-11-15T19:15:38-0300 [INFO] cpu=1% memoria=33% disco=28% carga="0.31 0.57 0.36" api=ok
+2026-11-15T19:15:54-0300 [INFO] Monitor iniciado (PID 12614): CPU 80%, memória 80%, disco 80%, intervalo 15s
+2026-11-15T19:15:54-0300 [INFO] cpu=8% memoria=33% disco=28% carga="0.24 0.54 0.35" api=ok
+2026-11-15T19:16:09-0300 [INFO] cpu=1% memoria=33% disco=28% carga="0.18 0.51 0.34" api=ok
+2026-11-15T19:16:24-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 1/2
+2026-11-15T19:16:24-0300 [INFO] cpu=2% memoria=29% disco=28% carga="0.14 0.48 0.34" api=falha(000)
+2026-11-15T19:16:39-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 2/2
+2026-11-15T19:16:39-0300 [CRITICO] API fora do ar em 2 verificações seguidas; recuperando contêineres
+2026-11-15T19:16:40-0300 [INFO] oportuniza-compose up -d executado
+2026-11-15T19:16:40-0300 [INFO] cpu=0% memoria=29% disco=28% carga="0.11 0.46 0.33" api=falha(000)
+2026-11-15T19:16:56-0300 [RECUPERADO] API respondendo novamente em http://127.0.0.1:5080/health
+2026-11-15T19:16:56-0300 [INFO] cpu=9% memoria=30% disco=28% carga="0.15 0.45 0.33" api=ok
+2026-11-15T19:17:11-0300 [INFO] cpu=2% memoria=31% disco=28% carga="0.17 0.44 0.33" api=ok
+2026-11-15T19:17:26-0300 [INFO] cpu=2% memoria=32% disco=28% carga="0.44 0.48 0.35" api=ok
+2026-11-15T19:17:41-0300 [ALERTA] CPU em 100% (limite 80%) (carga: 0.78 0.56 0.37)
+2026-11-15T19:17:41-0300 [INFO] cpu=100% memoria=32% disco=28% carga="0.78 0.56 0.37" api=ok
+2026-11-15T19:17:56-0300 [ALERTA] CPU em 100% (limite 80%) (carga: 1.05 0.63 0.40)
+2026-11-15T19:17:56-0300 [INFO] cpu=100% memoria=32% disco=28% carga="1.05 0.63 0.40" api=ok
+2026-11-15T19:18:11-0300 [ALERTA] CPU em 97% (limite 80%) (carga: 1.26 0.70 0.43)
+2026-11-15T19:18:11-0300 [INFO] cpu=97% memoria=31% disco=28% carga="1.26 0.70 0.43" api=ok
+2026-11-15T19:18:26-0300 [NORMALIZADO] CPU voltou para 1% (limite 80%)
+2026-11-15T19:18:26-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.98 0.66 0.42" api=ok
+2026-11-15T19:18:41-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.76 0.63 0.41" api=ok
+2026-11-15T19:18:56-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.67 0.62 0.41" api=ok
+2026-11-15T19:19:11-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.60 0.60 0.41" api=ok
+2026-11-15T19:19:27-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.54 0.59 0.41" api=ok
+2026-11-15T19:19:42-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.42 0.56 0.40" api=ok
+2026-11-15T19:19:57-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.32 0.53 0.39" api=ok
+2026-11-15T19:20:12-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.25 0.50 0.39" api=ok
+2026-11-15T19:20:27-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.20 0.48 0.38" api=ok
+2026-11-15T19:20:42-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.15 0.45 0.37" api=ok
+2026-11-15T19:20:57-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.12 0.43 0.36" api=ok
+2026-11-15T19:21:12-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.25 0.44 0.37" api=ok
+2026-11-15T19:21:27-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.33 0.45 0.37" api=ok
+2026-11-15T19:21:42-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.26 0.43 0.37" api=ok
+2026-11-15T19:21:58-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.20 0.41 0.36" api=ok
+2026-11-15T19:22:13-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.16 0.39 0.35" api=ok
+2026-11-15T19:22:28-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.12 0.37 0.35" api=ok
+2026-11-15T19:22:43-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.09 0.35 0.34" api=ok
+2026-11-15T19:22:58-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.07 0.33 0.34" api=ok
+2026-11-15T19:23:13-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.21 0.35 0.34" api=ok
+2026-11-15T19:23:28-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.23 0.35 0.34" api=ok
+2026-11-15T19:23:43-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.18 0.33 0.34" api=ok
+2026-11-15T19:23:58-0300 [INFO] cpu=1% memoria=31% disco=28% carga="0.14 0.31 0.33" api=ok
+2026-11-15T19:24:13-0300 [INFO] cpu=4% memoria=31% disco=28% carga="0.11 0.30 0.32" api=ok

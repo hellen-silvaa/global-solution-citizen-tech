@@ -1,105 +1,60 @@
-2026-11-15T15:28:29-0300 [ETAPA] [teste-falha] ==== teste-falha ====
-2026-11-15T15:28:29-0300 [ETAPA] [teste-falha] ==== Falha: processo do monitor morto com SIGKILL ====
-2026-11-15T15:28:29-0300 [INFO] [teste-falha] PID atual 10585, reinícios até agora 0
-2026-11-15T15:28:29-0300 [INFO] [teste-falha] kill -9 10585
-2026-11-15T15:28:29-0300 [CMD] [teste-falha] kill -9 10585
-2026-11-15T15:28:29-0300 [OK] [teste-falha] kill -9 10585
-2026-11-15T15:28:30-0300 [INFO] [teste-falha] Estado logo após o kill: activating
-2026-11-15T15:28:30-0300 [INFO] [teste-falha] Aguardando: systemd reiniciar o monitor
-2026-11-15T15:28:34-0300 [OK] [teste-falha] systemd reiniciar o monitor (tentativa 5)
-2026-11-15T15:28:34-0300 [INFO] [teste-falha] Novo PID 10876, reinícios agora 1
-    2026-11-15T15:28:27-03:00 oportuniza-srv oportuniza-monitor[10585]: [INFO] Monitor iniciado (PID 10585): CPU 80%, memória 80%, disco 80%, intervalo 15s
-    2026-11-15T15:28:29-03:00 oportuniza-srv systemd[1]: oportuniza-monitor.service: Main process exited, code=killed, status=9/KILL
-    2026-11-15T15:28:29-03:00 oportuniza-srv systemd[1]: oportuniza-monitor.service: Failed with result 'signal'.
-    2026-11-15T15:28:34-03:00 oportuniza-srv systemd[1]: oportuniza-monitor.service: Scheduled restart job, restart counter is at 1.
-    2026-11-15T15:28:34-03:00 oportuniza-srv systemd[1]: Started oportuniza-monitor.service - Oportuniza - monitor de CPU, memória, disco e saúde da API.
-2026-11-15T15:28:34-0300 [OK] [teste-falha] TESTE monitor: PASSOU
-2026-11-15T15:28:34-0300 [ETAPA] [teste-falha] ==== Falha: contêiner api parado (api) ====
-2026-11-15T15:28:34-0300 [INFO] [teste-falha] docker stop do contêiner api
-2026-11-15T15:28:34-0300 [CMD] [teste-falha] docker stop 20c4c0e21e08939dabd43fc2e6fd84d764d45c76bdd0ff1ed6c3d23eef28e872
-20c4c0e21e08939dabd43fc2e6fd84d764d45c76bdd0ff1ed6c3d23eef28e872
-2026-11-15T15:28:34-0300 [OK] [teste-falha] docker stop do contêiner api
-2026-11-15T15:28:36-0300 [INFO] [teste-falha] Saúde logo após a parada: sem resposta
-2026-11-15T15:28:36-0300 [INFO] [teste-falha] Aguardando: monitor detectar e recuperar o api (até 150s)
-2026-11-15T15:28:54-0300 [OK] [teste-falha] monitor detectar e recuperar o api (até 150s) (tentativa 7)
-2026-11-15T15:29:06-0300 [INFO] [teste-falha] Alertas registrados durante o teste:
-    2026-11-15T15:28:35-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 1/2
-    2026-11-15T15:28:50-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 2/2
-    2026-11-15T15:28:50-0300 [CRITICO] API fora do ar em 2 verificações seguidas; recuperando contêineres
-    2026-11-15T15:29:06-0300 [RECUPERADO] API respondendo novamente em http://127.0.0.1:5080/health
+2026-11-15T19:15:48-0300 [ETAPA] [teste-falha] ==== teste-falha ====
+2026-11-15T19:15:48-0300 [ETAPA] [teste-falha] ==== Falha: processo do monitor morto com SIGKILL ====
+2026-11-15T19:15:48-0300 [INFO] [teste-falha] PID atual 11194, reinícios até agora 0
+2026-11-15T19:15:48-0300 [INFO] [teste-falha] kill -9 11194
+2026-11-15T19:15:48-0300 [CMD] [teste-falha] kill -9 11194
+2026-11-15T19:15:48-0300 [OK] [teste-falha] kill -9 11194
+2026-11-15T19:15:49-0300 [INFO] [teste-falha] Estado logo após o kill: activating
+2026-11-15T19:15:49-0300 [INFO] [teste-falha] Aguardando: systemd reiniciar o monitor
+2026-11-15T19:15:53-0300 [OK] [teste-falha] systemd reiniciar o monitor (tentativa 5)
+2026-11-15T19:15:53-0300 [INFO] [teste-falha] Novo PID 12614, reinícios agora 1
+    2026-11-15T19:15:48-03:00 oportuniza-srv systemd[1]: oportuniza-monitor.service: Main process exited, code=killed, status=9/KILL
+    2026-11-15T19:15:48-03:00 oportuniza-srv systemd[1]: oportuniza-monitor.service: Failed with result 'signal'.
+    2026-11-15T19:15:53-03:00 oportuniza-srv systemd[1]: oportuniza-monitor.service: Scheduled restart job, restart counter is at 1.
+    2026-11-15T19:15:53-03:00 oportuniza-srv systemd[1]: Started oportuniza-monitor.service - Oportuniza - monitor de CPU, memória, disco e saúde da API.
+2026-11-15T19:15:53-0300 [OK] [teste-falha] TESTE monitor: PASSOU
+2026-11-15T19:15:53-0300 [ETAPA] [teste-falha] ==== Resultado ====
+2026-11-15T19:15:53-0300 [INFO] [teste-falha] monitor=PASSOU
+2026-11-15T19:15:53-0300 [OK] [teste-falha] Concluído em 5s
+2026-11-15T19:16:21-0300 [ETAPA] [teste-falha] ==== teste-falha ====
+2026-11-15T19:16:21-0300 [ETAPA] [teste-falha] ==== Falha: contêiner api parado (api) ====
+2026-11-15T19:16:21-0300 [INFO] [teste-falha] docker stop do contêiner api
+2026-11-15T19:16:21-0300 [CMD] [teste-falha] docker stop 84f9b037909405ac92ec3c23329fa9f3c024c363724e1fdb115038561c0cf334
+84f9b037909405ac92ec3c23329fa9f3c024c363724e1fdb115038561c0cf334
+2026-11-15T19:16:21-0300 [OK] [teste-falha] docker stop do contêiner api
+2026-11-15T19:16:23-0300 [INFO] [teste-falha] Saúde logo após a parada: sem resposta
+2026-11-15T19:16:23-0300 [INFO] [teste-falha] Aguardando: monitor detectar e recuperar o api (até 150s)
+2026-11-15T19:16:44-0300 [OK] [teste-falha] monitor detectar e recuperar o api (até 150s) (tentativa 8)
+2026-11-15T19:16:57-0300 [INFO] [teste-falha] Alertas registrados durante o teste:
+    2026-11-15T19:16:24-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 1/2
+    2026-11-15T19:16:39-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 2/2
+    2026-11-15T19:16:39-0300 [CRITICO] API fora do ar em 2 verificações seguidas; recuperando contêineres
+    2026-11-15T19:16:56-0300 [RECUPERADO] API respondendo novamente em http://127.0.0.1:5080/health
     SERVICE   STATE     STATUS
-    api       running   Up 15 seconds
-    mysql     running   Up About a minute (healthy)
-2026-11-15T15:29:07-0300 [OK] [teste-falha] TESTE api: PASSOU
-2026-11-15T15:29:07-0300 [ETAPA] [teste-falha] ==== Falha: contêiner mysql parado (banco) ====
-2026-11-15T15:29:07-0300 [INFO] [teste-falha] docker stop do contêiner mysql
-2026-11-15T15:29:07-0300 [CMD] [teste-falha] docker stop 9ccf13ccf89efd78f33b0aa86673de65fb14ebd9773f3ad7cd26cfdcbaf54c41
-9ccf13ccf89efd78f33b0aa86673de65fb14ebd9773f3ad7cd26cfdcbaf54c41
-2026-11-15T15:29:10-0300 [OK] [teste-falha] docker stop do contêiner mysql
-2026-11-15T15:29:13-0300 [INFO] [teste-falha] Saúde logo após a parada: {"status":"DOWN","banco":"DOWN"}
-2026-11-15T15:29:13-0300 [INFO] [teste-falha] Aguardando: monitor detectar e recuperar o mysql (até 150s)
-2026-11-15T15:29:40-0300 [OK] [teste-falha] monitor detectar e recuperar o mysql (até 150s) (tentativa 10)
-2026-11-15T15:29:58-0300 [INFO] [teste-falha] Alertas registrados durante o teste:
-    2026-11-15T15:29:21-0300 [ALERTA] API sem resposta saudável (HTTP 503), falha 1/2
-    2026-11-15T15:29:36-0300 [ALERTA] API sem resposta saudável (HTTP 503), falha 2/2
-    2026-11-15T15:29:36-0300 [CRITICO] API fora do ar em 2 verificações seguidas; recuperando contêineres
-    2026-11-15T15:29:58-0300 [RECUPERADO] API respondendo novamente em http://127.0.0.1:5080/health
-    SERVICE   STATE     STATUS
-    api       running   Up About a minute
-    mysql     running   Up 20 seconds (healthy)
-2026-11-15T15:29:58-0300 [OK] [teste-falha] TESTE banco: PASSOU
-2026-11-15T15:29:58-0300 [ETAPA] [teste-falha] ==== Sobrecarga: CPU em 100% por 45s ====
-2026-11-15T15:29:58-0300 [INFO] [teste-falha] stress-ng --cpu 2 --timeout 45s
-2026-11-15T15:29:58-0300 [CMD] [teste-falha] stress-ng --cpu 2 --timeout 45s
-stress-ng: info:  [12124] setting to a 45 secs run per stressor
-stress-ng: info:  [12124] dispatching hogs: 2 cpu
-stress-ng: info:  [12124] skipped: 0
-stress-ng: info:  [12124] passed: 2: cpu (2)
-stress-ng: info:  [12124] failed: 0
-stress-ng: info:  [12124] metrics untrustworthy: 0
-stress-ng: info:  [12124] successful run completed in 45.01 secs
-2026-11-15T15:30:43-0300 [OK] [teste-falha] stress-ng --cpu 2 --timeout 45s
-2026-11-15T15:30:58-0300 [INFO] [teste-falha] Alertas registrados durante o teste:
-    2026-11-15T15:30:13-0300 [ALERTA] CPU em 98% (limite 80%) (carga: 1.27 1.14 0.56)
-    2026-11-15T15:30:28-0300 [ALERTA] CPU em 100% (limite 80%) (carga: 1.44 1.19 0.58)
-    2026-11-15T15:30:43-0300 [ALERTA] CPU em 100% (limite 80%) (carga: 1.56 1.23 0.60)
-    2026-11-15T15:30:58-0300 [NORMALIZADO] CPU voltou para 1% (limite 80%)
-2026-11-15T15:30:58-0300 [OK] [teste-falha] TESTE cpu: PASSOU
-2026-11-15T15:30:58-0300 [ETAPA] [teste-falha] ==== Sobrecarga: memória acima de 80% por 45s ====
-2026-11-15T15:30:58-0300 [INFO] [teste-falha] Total 3906MB, em uso 1199MB; alocando mais 2238MB
-2026-11-15T15:30:58-0300 [INFO] [teste-falha] stress-ng --vm 1 --vm-bytes 2238M --vm-keep --timeout 45s
-2026-11-15T15:30:58-0300 [CMD] [teste-falha] stress-ng --vm 1 --vm-bytes 2238M --vm-keep --timeout 45s
-stress-ng: info:  [12543] setting to a 45 secs run per stressor
-stress-ng: info:  [12543] dispatching hogs: 1 vm
-stress-ng: info:  [12543] skipped: 0
-stress-ng: info:  [12543] passed: 1: vm (1)
-stress-ng: info:  [12543] failed: 0
-stress-ng: info:  [12543] metrics untrustworthy: 0
-stress-ng: info:  [12543] successful run completed in 46.51 secs
-2026-11-15T15:31:45-0300 [OK] [teste-falha] stress-ng --vm 1 --vm-bytes 2238M --vm-keep --timeout 45s
-2026-11-15T15:31:59-0300 [INFO] [teste-falha] Alertas registrados durante o teste:
-    2026-11-15T15:31:13-0300 [ALERTA] MEMORIA em 87% (limite 80%) (3426MB de 3906MB)
-    2026-11-15T15:31:28-0300 [ALERTA] MEMORIA em 94% (limite 80%) (3700MB de 3906MB)
-    2026-11-15T15:31:43-0300 [ALERTA] MEMORIA em 86% (limite 80%) (3362MB de 3906MB)
-    2026-11-15T15:31:59-0300 [NORMALIZADO] MEMORIA voltou para 28% (limite 80%)
-2026-11-15T15:31:59-0300 [OK] [teste-falha] TESTE memoria: PASSOU
-2026-11-15T15:31:59-0300 [ETAPA] [teste-falha] ==== Sobrecarga: disco acima de 80% ====
-2026-11-15T15:31:59-0300 [INFO] [teste-falha] Criando arquivo de 16GB em /var/tmp/oportuniza-teste-disco.img
-2026-11-15T15:31:59-0300 [CMD] [teste-falha] fallocate -l 16902051K /var/tmp/oportuniza-teste-disco.img
-2026-11-15T15:31:59-0300 [OK] [teste-falha] Criando arquivo de 16GB em /var/tmp/oportuniza-teste-disco.img
-2026-11-15T15:31:59-0300 [INFO] [teste-falha] Uso do disco agora: 86%
-2026-11-15T15:32:14-0300 [INFO] [teste-falha] Removendo o arquivo de teste
-2026-11-15T15:32:14-0300 [CMD] [teste-falha] rm -f /var/tmp/oportuniza-teste-disco.img
-2026-11-15T15:32:14-0300 [OK] [teste-falha] Removendo o arquivo de teste
-2026-11-15T15:32:29-0300 [INFO] [teste-falha] Alertas registrados durante o teste:
-    2026-11-15T15:32:14-0300 [ALERTA] DISCO em 86% (limite 80%) (/, 4.2G livres)
-    2026-11-15T15:32:29-0300 [NORMALIZADO] DISCO voltou para 28% (limite 80%)
-2026-11-15T15:32:29-0300 [OK] [teste-falha] TESTE disco: PASSOU
-2026-11-15T15:32:29-0300 [ETAPA] [teste-falha] ==== Resultado ====
-2026-11-15T15:32:29-0300 [INFO] [teste-falha] monitor=PASSOU
-2026-11-15T15:32:29-0300 [INFO] [teste-falha] api=PASSOU
-2026-11-15T15:32:29-0300 [INFO] [teste-falha] banco=PASSOU
-2026-11-15T15:32:29-0300 [INFO] [teste-falha] cpu=PASSOU
-2026-11-15T15:32:29-0300 [INFO] [teste-falha] memoria=PASSOU
-2026-11-15T15:32:29-0300 [INFO] [teste-falha] disco=PASSOU
-2026-11-15T15:32:29-0300 [OK] [teste-falha] Concluído em 240s
+    api       running   Up 16 seconds
+    mysql     running   Up 5 minutes (healthy)
+2026-11-15T19:16:57-0300 [OK] [teste-falha] TESTE api: PASSOU
+2026-11-15T19:16:57-0300 [ETAPA] [teste-falha] ==== Resultado ====
+2026-11-15T19:16:57-0300 [INFO] [teste-falha] api=PASSOU
+2026-11-15T19:16:57-0300 [OK] [teste-falha] Concluído em 36s
+2026-11-15T19:17:25-0300 [ETAPA] [teste-falha] ==== teste-falha ====
+2026-11-15T19:17:25-0300 [ETAPA] [teste-falha] ==== Sobrecarga: CPU em 100% por 45s ====
+2026-11-15T19:17:26-0300 [INFO] [teste-falha] stress-ng --cpu 2 --timeout 45s
+2026-11-15T19:17:26-0300 [CMD] [teste-falha] stress-ng --cpu 2 --timeout 45s
+stress-ng: info:  [13575] setting to a 45 secs run per stressor
+stress-ng: info:  [13575] dispatching hogs: 2 cpu
+stress-ng: info:  [13575] skipped: 0
+stress-ng: info:  [13575] passed: 2: cpu (2)
+stress-ng: info:  [13575] failed: 0
+stress-ng: info:  [13575] metrics untrustworthy: 0
+stress-ng: info:  [13575] successful run completed in 45.01 secs
+2026-11-15T19:18:11-0300 [OK] [teste-falha] stress-ng --cpu 2 --timeout 45s
+2026-11-15T19:18:27-0300 [INFO] [teste-falha] Alertas registrados durante o teste:
+    2026-11-15T19:17:41-0300 [ALERTA] CPU em 100% (limite 80%) (carga: 0.78 0.56 0.37)
+    2026-11-15T19:17:56-0300 [ALERTA] CPU em 100% (limite 80%) (carga: 1.05 0.63 0.40)
+    2026-11-15T19:18:11-0300 [ALERTA] CPU em 97% (limite 80%) (carga: 1.26 0.70 0.43)
+    2026-11-15T19:18:26-0300 [NORMALIZADO] CPU voltou para 1% (limite 80%)
+2026-11-15T19:18:27-0300 [OK] [teste-falha] TESTE cpu: PASSOU
+2026-11-15T19:18:27-0300 [ETAPA] [teste-falha] ==== Resultado ====
+2026-11-15T19:18:27-0300 [INFO] [teste-falha] cpu=PASSOU
+2026-11-15T19:18:27-0300 [OK] [teste-falha] Concluído em 62s

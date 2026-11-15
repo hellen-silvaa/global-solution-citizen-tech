@@ -1,20 +1,8 @@
-2026-11-15T15:28:35-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 1/2
-2026-11-15T15:28:50-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 2/2
-2026-11-15T15:28:50-0300 [CRITICO] API fora do ar em 2 verificações seguidas; recuperando contêineres
-2026-11-15T15:29:06-0300 [RECUPERADO] API respondendo novamente em http://127.0.0.1:5080/health
-2026-11-15T15:29:21-0300 [ALERTA] API sem resposta saudável (HTTP 503), falha 1/2
-2026-11-15T15:29:36-0300 [ALERTA] API sem resposta saudável (HTTP 503), falha 2/2
-2026-11-15T15:29:36-0300 [CRITICO] API fora do ar em 2 verificações seguidas; recuperando contêineres
-2026-11-15T15:29:58-0300 [RECUPERADO] API respondendo novamente em http://127.0.0.1:5080/health
-2026-11-15T15:30:13-0300 [ALERTA] CPU em 98% (limite 80%) (carga: 1.27 1.14 0.56)
-2026-11-15T15:30:28-0300 [ALERTA] CPU em 100% (limite 80%) (carga: 1.44 1.19 0.58)
-2026-11-15T15:30:43-0300 [ALERTA] CPU em 100% (limite 80%) (carga: 1.56 1.23 0.60)
-2026-11-15T15:30:58-0300 [NORMALIZADO] CPU voltou para 1% (limite 80%)
-2026-11-15T15:31:13-0300 [ALERTA] MEMORIA em 87% (limite 80%) (3426MB de 3906MB)
-2026-11-15T15:31:28-0300 [ALERTA] MEMORIA em 94% (limite 80%) (3700MB de 3906MB)
-2026-11-15T15:31:43-0300 [ALERTA] MEMORIA em 86% (limite 80%) (3362MB de 3906MB)
-2026-11-15T15:31:59-0300 [NORMALIZADO] MEMORIA voltou para 28% (limite 80%)
-2026-11-15T15:32:14-0300 [ALERTA] DISCO em 86% (limite 80%) (/, 4.2G livres)
-2026-11-15T15:32:29-0300 [NORMALIZADO] DISCO voltou para 28% (limite 80%)
-2026-11-15T15:33:19-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 1/2
-2026-11-15T15:33:35-0300 [RECUPERADO] API respondendo novamente em http://127.0.0.1:5080/health
+2026-11-15T19:16:24-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 1/2
+2026-11-15T19:16:39-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 2/2
+2026-11-15T19:16:39-0300 [CRITICO] API fora do ar em 2 verificações seguidas; recuperando contêineres
+2026-11-15T19:16:56-0300 [RECUPERADO] API respondendo novamente em http://127.0.0.1:5080/health
+2026-11-15T19:17:41-0300 [ALERTA] CPU em 100% (limite 80%) (carga: 0.78 0.56 0.37)
+2026-11-15T19:17:56-0300 [ALERTA] CPU em 100% (limite 80%) (carga: 1.05 0.63 0.40)
+2026-11-15T19:18:11-0300 [ALERTA] CPU em 97% (limite 80%) (carga: 1.26 0.70 0.43)
+2026-11-15T19:18:26-0300 [NORMALIZADO] CPU voltou para 1% (limite 80%)

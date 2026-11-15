@@ -1,49 +1,46 @@
-Gerado em 2026-11-15T15:34:27-0300 por status.sh
+Gerado em 2026-11-15T19:12:08-0300 por status.sh
 
 
 Key Summary Report
 ===========================
 total  key
 ===========================
-63  oportuniza-segredos
-23  oportuniza-docker
-13  oportuniza-app
-12  oportuniza-identidade
-10  oportuniza-servicos
-8  oportuniza-monitor
-8  oportuniza-rede
-6  oportuniza-config
-4  oportuniza-ssh
-4  oportuniza-privilegios
-2  oportuniza-scripts
-2  oportuniza-dns
-2  oportuniza-firewall
-2  oportuniza-logs
+26  oportuniza-segredos
+11  oportuniza-docker
+10  oportuniza-app
+10  oportuniza-identidade
+8  oportuniza-servicos
+5  oportuniza-config
+5  oportuniza-monitor
+4  oportuniza-rede
+2  oportuniza-ssh
+2  oportuniza-privilegios
+1  oportuniza-scripts
+1  oportuniza-dns
+1  oportuniza-firewall
+1  oportuniza-logs
 
 == Últimos eventos: oportuniza-servicos ==
-5. 11/15/26 15:28:03 /etc/systemd/system/oportuniza.service fchmodat yes /usr/bin/install azureuser 623
-6. 11/15/26 15:28:25 /etc/systemd/system/ openat yes /usr/bin/install azureuser 738
-7. 11/15/26 15:28:25 (null) fsetxattr yes /usr/bin/install azureuser 739
-8. 11/15/26 15:28:25 /etc/systemd/system/oportuniza-monitor.service fchmodat yes /usr/bin/install azureuser 740
-9. 11/15/26 15:33:06 /etc/systemd/system/ sendto yes /usr/sbin/auditctl unset 63
-10. 11/15/26 15:33:06 /etc/systemd/system/ sendto yes /usr/sbin/auditctl unset 65
+3. 11/15/26 19:11:45 /etc/systemd/system/ openat yes /usr/bin/install azureuser 602
+4. 11/15/26 19:11:45 (null) fsetxattr yes /usr/bin/install azureuser 603
+5. 11/15/26 19:11:45 /etc/systemd/system/oportuniza.service fchmodat yes /usr/bin/install azureuser 604
+6. 11/15/26 19:12:04 /etc/systemd/system/ openat yes /usr/bin/install azureuser 746
+7. 11/15/26 19:12:04 (null) fsetxattr yes /usr/bin/install azureuser 747
+8. 11/15/26 19:12:04 /etc/systemd/system/oportuniza-monitor.service fchmodat yes /usr/bin/install azureuser 748
 
 == Últimos eventos: oportuniza-segredos ==
-58. 11/15/26 15:33:12 /etc/oportuniza/app.env openat yes /usr/libexec/docker/cli-plugins/docker-compose unset 267
-59. 11/15/26 15:33:12 /etc/oportuniza/app.env openat yes /usr/libexec/docker/cli-plugins/docker-compose unset 268
-60. 11/15/26 15:34:27 /etc/oportuniza/app.env openat yes /usr/libexec/docker/cli-plugins/docker-compose azureuser 343
-61. 11/15/26 15:34:27 /etc/oportuniza/app.env openat yes /usr/libexec/docker/cli-plugins/docker-compose azureuser 344
-62. 11/15/26 15:34:27 /etc/oportuniza/app.env openat yes /usr/libexec/docker/cli-plugins/docker-compose azureuser 345
-63. 11/15/26 15:34:27 /etc/oportuniza/app.env openat yes /usr/libexec/docker/cli-plugins/docker-compose azureuser 346
+21. 11/15/26 19:11:57 /etc/oportuniza/app.env openat yes /usr/libexec/docker/cli-plugins/docker-compose azureuser 712
+22. 11/15/26 19:11:57 /etc/oportuniza/app.env openat yes /usr/libexec/docker/cli-plugins/docker-compose azureuser 713
+23. 11/15/26 19:12:08 /etc/oportuniza/app.env openat yes /usr/libexec/docker/cli-plugins/docker-compose azureuser 812
+24. 11/15/26 19:12:08 /etc/oportuniza/app.env openat yes /usr/libexec/docker/cli-plugins/docker-compose azureuser 813
+25. 11/15/26 19:12:08 /etc/oportuniza/app.env openat yes /usr/libexec/docker/cli-plugins/docker-compose azureuser 814
+26. 11/15/26 19:12:08 /etc/oportuniza/app.env openat yes /usr/libexec/docker/cli-plugins/docker-compose azureuser 815
 
 == Últimos eventos: oportuniza-rede ==
-3. 11/15/26 15:26:50 /etc/netplan sendto yes /usr/sbin/auditctl azureuser 341
-4. 11/15/26 15:26:50 /etc/sysctl.d sendto yes /usr/sbin/auditctl azureuser 342
-5. 11/15/26 15:33:06 /etc/ sendto yes /usr/sbin/auditctl unset 66
-6. 11/15/26 15:33:06 /etc/ sendto yes /usr/sbin/auditctl unset 67
-7. 11/15/26 15:33:06 /etc/netplan sendto yes /usr/sbin/auditctl unset 68
-8. 11/15/26 15:33:06 /etc/sysctl.d sendto yes /usr/sbin/auditctl unset 69
+1. 11/15/26 19:10:35 /etc/ sendto yes /usr/sbin/auditctl azureuser 341
+2. 11/15/26 19:10:35 /etc/ sendto yes /usr/sbin/auditctl azureuser 342
+3. 11/15/26 19:10:35 /etc/netplan sendto yes /usr/sbin/auditctl azureuser 343
+4. 11/15/26 19:10:35 /etc/sysctl.d sendto yes /usr/sbin/auditctl azureuser 344
 
 == Últimos eventos: oportuniza-firewall ==
-1. 11/15/26 15:26:50 /etc/ufw sendto yes /usr/sbin/auditctl azureuser 344
-2. 11/15/26 15:33:06 /etc/ufw sendto yes /usr/sbin/auditctl unset 71
+1. 11/15/26 19:10:35 /etc/ufw sendto yes /usr/sbin/auditctl azureuser 346

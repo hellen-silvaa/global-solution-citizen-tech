@@ -1,9 +1,10 @@
-2026-11-15T15:28:28-0300 [ETAPA] [status] ==== status ====
+2026-11-15T19:12:07-0300 [ETAPA] [status] ==== status ====
 
-== Host e rede (2026-11-15T15:28:28-0300) ==
+== Host e rede (2026-11-15T19:12:08-0300) ==
 Hostname:   oportuniza-srv (oportuniza-srv.oportuniza.internal)
 IP privado: 10.0.0.4/24 em eth0 | gateway 10.0.0.1
-IP público: 68.211.149.86
+IP público: 68.211.146.150
+Nome:       oportuniza-gs.chilecentral.cloudapp.azure.com -> 68.211.146.150
 DNS:        1.1.1.1 8.8.8.8 168.63.129.16
 Interno:    api.oportuniza.internal -> 10.0.0.4
 Status: active
@@ -18,26 +19,25 @@ auditd               active     boot=enabled   reinícios=0
 
 == Contêineres ==
 SERVICE   STATE     STATUS                    PORTS
-api       running   Up 8 seconds              0.0.0.0:5080->8080/tcp, [::]:5080->8080/tcp
-mysql     running   Up 23 seconds (healthy)   33060/tcp, 127.0.0.1:3307->3306/tcp
+api       running   Up 9 seconds              0.0.0.0:5080->8080/tcp, [::]:5080->8080/tcp
+mysql     running   Up 21 seconds (healthy)   33060/tcp, 127.0.0.1:3307->3306/tcp
 
 == Aplicação ==
 Saúde:   {"status":"UP","banco":"UP"}
-Swagger: http://68.211.149.86:5080/swagger
+Swagger: http://oportuniza-gs.chilecentral.cloudapp.azure.com:5080/swagger
 
 == Recursos (última leitura do monitor) ==
-2026-11-15T15:28:27-0300 [INFO] cpu=19% memoria=31% disco=28% carga="3.51 1.34 0.54" api=ok
+2026-11-15T19:12:07-0300 [INFO] cpu=22% memoria=32% disco=28% carga="2.44 0.99 0.42" api=ok
 
 == Últimos alertas (/var/log/oportuniza/alertas.log) ==
-nenhum
 
 == Auditoria de scripts (/var/log/oportuniza/auditoria.log) ==
-2026-11-15T15:26:50-0300 evento=FIM script=02-auditoria usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=1s
-2026-11-15T15:26:50-0300 evento=INICIO script=03-app usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv args="" sha256=075f69476c9c1c74
-2026-11-15T15:28:25-0300 evento=FIM script=03-app usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=95s
-2026-11-15T15:28:25-0300 evento=INICIO script=04-monitoramento usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv args="" sha256=465924494aaa4219
-2026-11-15T15:28:28-0300 evento=FIM script=04-monitoramento usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=3s
-2026-11-15T15:28:28-0300 evento=INICIO script=status usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv args="" sha256=3181fef6375ab4f2
+2026-11-15T19:10:35-0300 evento=FIM script=02-auditoria usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv codigo=0 duracao=1s
+2026-11-15T19:10:35-0300 evento=INICIO script=03-app usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv args="" sha256=ce2e07726766d924
+2026-11-15T19:12:04-0300 evento=FIM script=03-app usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv codigo=0 duracao=89s
+2026-11-15T19:12:04-0300 evento=INICIO script=04-monitoramento usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv args="" sha256=465924494aaa4219
+2026-11-15T19:12:07-0300 evento=FIM script=04-monitoramento usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv codigo=0 duracao=3s
+2026-11-15T19:12:07-0300 evento=INICIO script=status usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv args="" sha256=293a18219fc6a707
 
 == Auditoria do kernel (resumo completo em /var/log/oportuniza/auditd-resumo.log) ==
 26  oportuniza-segredos
@@ -54,68 +54,4 @@ nenhum
 1  oportuniza-dns
 1  oportuniza-firewall
 1  oportuniza-logs
-2026-11-15T15:28:28-0300 [OK] [status] Concluído em 0s
-2026-11-15T15:34:27-0300 [ETAPA] [status] ==== status ====
-
-== Host e rede (2026-11-15T15:34:27-0300) ==
-Hostname:   oportuniza-srv (oportuniza-srv.oportuniza.internal)
-IP privado: 10.0.0.4/24 em eth0 | gateway 10.0.0.1
-IP público: 68.211.149.86
-DNS:        1.1.1.1 8.8.8.8 168.63.129.16
-Interno:    api.oportuniza.internal -> 10.0.0.4
-Status: active
-22/tcp                     LIMIT       Anywhere                   # SSH
-5080/tcp                   ALLOW       Anywhere                   # Oportuniza API
-
-== Serviços ==
-docker               active     boot=enabled   reinícios=0
-oportuniza           active     boot=enabled   reinícios=0
-oportuniza-monitor   active     boot=enabled   reinícios=0
-auditd               active     boot=enabled   reinícios=0
-
-== Contêineres ==
-SERVICE   STATE     STATUS                        PORTS
-api       running   Up About a minute             0.0.0.0:5080->8080/tcp, [::]:5080->8080/tcp
-mysql     running   Up About a minute (healthy)   33060/tcp, 127.0.0.1:3307->3306/tcp
-
-== Aplicação ==
-Saúde:   {"status":"UP","banco":"UP"}
-Swagger: http://68.211.149.86:5080/swagger
-
-== Recursos (última leitura do monitor) ==
-2026-11-15T15:34:20-0300 [INFO] cpu=1% memoria=26% disco=28% carga="0.16 0.08 0.03" api=ok
-
-== Últimos alertas (/var/log/oportuniza/alertas.log) ==
-2026-11-15T15:31:13-0300 [ALERTA] MEMORIA em 87% (limite 80%) (3426MB de 3906MB)
-2026-11-15T15:31:28-0300 [ALERTA] MEMORIA em 94% (limite 80%) (3700MB de 3906MB)
-2026-11-15T15:31:43-0300 [ALERTA] MEMORIA em 86% (limite 80%) (3362MB de 3906MB)
-2026-11-15T15:31:59-0300 [NORMALIZADO] MEMORIA voltou para 28% (limite 80%)
-2026-11-15T15:32:14-0300 [ALERTA] DISCO em 86% (limite 80%) (/, 4.2G livres)
-2026-11-15T15:32:29-0300 [NORMALIZADO] DISCO voltou para 28% (limite 80%)
-2026-11-15T15:33:19-0300 [ALERTA] API sem resposta saudável (HTTP 000), falha 1/2
-2026-11-15T15:33:35-0300 [RECUPERADO] API respondendo novamente em http://127.0.0.1:5080/health
-
-== Auditoria de scripts (/var/log/oportuniza/auditoria.log) ==
-2026-11-15T15:28:28-0300 evento=FIM script=status usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=0s
-2026-11-15T15:28:28-0300 evento=FIM script=provision usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=132s
-2026-11-15T15:28:29-0300 evento=INICIO script=teste-falha usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv args="todos" sha256=00f9f0c4c8eb6a68
-2026-11-15T15:32:29-0300 evento=RESULTADO script=teste-falha usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv monitor=PASSOU api=PASSOU banco=PASSOU cpu=PASSOU memoria=PASSOU disco=PASSOU
-2026-11-15T15:32:29-0300 evento=FIM script=teste-falha usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=240s
-2026-11-15T15:34:27-0300 evento=INICIO script=status usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv args="" sha256=3181fef6375ab4f2
-
-== Auditoria do kernel (resumo completo em /var/log/oportuniza/auditd-resumo.log) ==
-63  oportuniza-segredos
-23  oportuniza-docker
-13  oportuniza-app
-12  oportuniza-identidade
-10  oportuniza-servicos
-8  oportuniza-monitor
-8  oportuniza-rede
-6  oportuniza-config
-4  oportuniza-ssh
-4  oportuniza-privilegios
-2  oportuniza-scripts
-2  oportuniza-dns
-2  oportuniza-firewall
-2  oportuniza-logs
-2026-11-15T15:34:27-0300 [OK] [status] Concluído em 0s
+2026-11-15T19:12:08-0300 [OK] [status] Concluído em 1s

@@ -1,19 +1,21 @@
-2026-11-15T18:26:16+0000 evento=INICIO script=provision usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-vm args="" sha256=9da179040343ef00
-2026-11-15T18:26:16+0000 evento=INICIO script=01-infra usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-vm args="" sha256=5fa4c548f68f3bd2
-2026-11-15T15:26:49-0300 evento=FIM script=01-infra usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=33s
-2026-11-15T15:26:49-0300 evento=INICIO script=02-auditoria usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv args="" sha256=a5001dc419c1bc9f
-2026-11-15T15:26:50-0300 evento=FIM script=02-auditoria usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=1s
-2026-11-15T15:26:50-0300 evento=INICIO script=03-app usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv args="" sha256=075f69476c9c1c74
-2026-11-15T15:28:25-0300 evento=FIM script=03-app usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=95s
-2026-11-15T15:28:25-0300 evento=INICIO script=04-monitoramento usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv args="" sha256=465924494aaa4219
-2026-11-15T15:28:28-0300 evento=FIM script=04-monitoramento usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=3s
-2026-11-15T15:28:28-0300 evento=INICIO script=status usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv args="" sha256=3181fef6375ab4f2
-2026-11-15T15:28:28-0300 evento=FIM script=status usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=0s
-2026-11-15T15:28:28-0300 evento=FIM script=provision usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=132s
-2026-11-15T15:28:29-0300 evento=INICIO script=teste-falha usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv args="todos" sha256=00f9f0c4c8eb6a68
-2026-11-15T15:32:29-0300 evento=RESULTADO script=teste-falha usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv monitor=PASSOU api=PASSOU banco=PASSOU cpu=PASSOU memoria=PASSOU disco=PASSOU
-2026-11-15T15:32:29-0300 evento=FIM script=teste-falha usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=240s
-2026-11-15T15:34:27-0300 evento=INICIO script=status usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv args="" sha256=3181fef6375ab4f2
-2026-11-15T15:34:27-0300 evento=FIM script=status usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=0s
-2026-11-15T15:34:38-0300 evento=INICIO script=04-monitoramento usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv args="" sha256=465924494aaa4219
-2026-11-15T15:34:39-0300 evento=FIM script=04-monitoramento usuario=root sudo_usuario=azureuser tty=nenhum host=oportuniza-srv codigo=0 duracao=1s
+2026-11-15T22:09:59+0000 evento=INICIO script=provision usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-vm args="" sha256=9da179040343ef00
+2026-11-15T22:09:59+0000 evento=INICIO script=01-infra usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-vm args="" sha256=ae4cf40c8c6d3195
+2026-11-15T19:10:34-0300 evento=FIM script=01-infra usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv codigo=0 duracao=35s
+2026-11-15T19:10:34-0300 evento=INICIO script=02-auditoria usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv args="" sha256=a5001dc419c1bc9f
+2026-11-15T19:10:35-0300 evento=FIM script=02-auditoria usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv codigo=0 duracao=1s
+2026-11-15T19:10:35-0300 evento=INICIO script=03-app usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv args="" sha256=ce2e07726766d924
+2026-11-15T19:12:04-0300 evento=FIM script=03-app usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv codigo=0 duracao=89s
+2026-11-15T19:12:04-0300 evento=INICIO script=04-monitoramento usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv args="" sha256=465924494aaa4219
+2026-11-15T19:12:07-0300 evento=FIM script=04-monitoramento usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv codigo=0 duracao=3s
+2026-11-15T19:12:07-0300 evento=INICIO script=status usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv args="" sha256=293a18219fc6a707
+2026-11-15T19:12:08-0300 evento=FIM script=status usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv codigo=0 duracao=1s
+2026-11-15T19:12:08-0300 evento=FIM script=provision usuario=root sudo_usuario=azureuser tty=/dev/pts/2 host=oportuniza-srv codigo=0 duracao=129s
+2026-11-15T19:15:48-0300 evento=INICIO script=teste-falha usuario=root sudo_usuario=azureuser tty=/dev/pts/3 host=oportuniza-srv args="monitor" sha256=00f9f0c4c8eb6a68
+2026-11-15T19:15:53-0300 evento=RESULTADO script=teste-falha usuario=root sudo_usuario=azureuser tty=/dev/pts/3 host=oportuniza-srv monitor=PASSOU
+2026-11-15T19:15:53-0300 evento=FIM script=teste-falha usuario=root sudo_usuario=azureuser tty=/dev/pts/3 host=oportuniza-srv codigo=0 duracao=5s
+2026-11-15T19:16:21-0300 evento=INICIO script=teste-falha usuario=root sudo_usuario=azureuser tty=/dev/pts/3 host=oportuniza-srv args="api" sha256=00f9f0c4c8eb6a68
+2026-11-15T19:16:57-0300 evento=RESULTADO script=teste-falha usuario=root sudo_usuario=azureuser tty=/dev/pts/3 host=oportuniza-srv api=PASSOU
+2026-11-15T19:16:57-0300 evento=FIM script=teste-falha usuario=root sudo_usuario=azureuser tty=/dev/pts/3 host=oportuniza-srv codigo=0 duracao=36s
+2026-11-15T19:17:25-0300 evento=INICIO script=teste-falha usuario=root sudo_usuario=azureuser tty=/dev/pts/3 host=oportuniza-srv args="cpu" sha256=00f9f0c4c8eb6a68
+2026-11-15T19:18:27-0300 evento=RESULTADO script=teste-falha usuario=root sudo_usuario=azureuser tty=/dev/pts/3 host=oportuniza-srv cpu=PASSOU
+2026-11-15T19:18:27-0300 evento=FIM script=teste-falha usuario=root sudo_usuario=azureuser tty=/dev/pts/3 host=oportuniza-srv codigo=0 duracao=62s
